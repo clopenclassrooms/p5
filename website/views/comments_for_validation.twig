@@ -1,0 +1,31 @@
+
+<div>
+<form action="/comment_validation/" methode="post" id="form1">
+    {% for commmentDATAS in comments %}
+    
+        <div>
+            <div>
+                <input type="checkbox" name="comments_valided[]" value="{{commmentDATAS.id}}">
+            </div>
+            <div>
+            {{ commmentDATAS.comment }}
+            </div>
+            <div>
+            {{commmentDATAS.validated}}
+            </div>
+            <div>
+            {{commmentDATAS.creationDate}}
+            </div>
+            <div>
+            {{commmentDATAS.author_login}}
+            </div>
+            <div>
+            {{commmentDATAS.author_user_id}}
+            </div>
+            <br>
+        <div>
+
+    {% endfor %}
+            <button type="submit" form="form1"  type="button">Valider</button>
+        </form>
+<div>

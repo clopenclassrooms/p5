@@ -1,0 +1,39 @@
+<html>
+    <h1>Title : {{post.title}}</h1>
+    <p>id : {{post.id}}</p>
+    <p>content : {{post.content}}</p>
+    <p>creationDate : {{post.creationDate}}</p>
+    <p>modificationDate : {{post.modificationDate}}</p>
+    <p>add_comment_result : {{add_comment_result}}</p>
+    {% if add_comment == true %}
+        {% if add_comment_result == true %}
+            <div>Votre commentaire a été rajouté. Il est en attente de validation par l'administrateur du site</div>
+            {% else %}
+            <div>Erreur, votre commentaire n'a pas été rajouté</div>
+        {% endif %}
+    {% endif %}
+    {{is_log}}
+    {% if is_log == true %}
+    <form methode="post" action="/display_post/">
+        <div>
+            <input name="post_id" type="hidden" value="{{post.id}}">
+            <input name="add_comment" type="hidden" value="1">
+            <span>Rajouter un nouveau commentaire : </span>
+            <input name="comment" type="textarea" value=" ">
+        </div>
+    </form>
+    {% endif %}
+    {% if (comments | length) > 0 %}
+    <div>
+        <div><span>commentaires : </span></div>
+        {% for comment in comments %}
+            {% for key, value in comment %}
+            <div>
+              <pre style="background: #eee">{{ key }} : {{ value }}</pre>
+            <div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <a href="/">Retour à l'accueil</a>
+<html>

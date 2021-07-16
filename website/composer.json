@@ -1,0 +1,6 @@
+{
+    "name": "root/app",
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}

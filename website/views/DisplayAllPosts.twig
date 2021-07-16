@@ -1,0 +1,8 @@
+<html>
+{% for post in posts %}
+    {% for key, value in post %}
+        <pre style="background: #eee">{{ key }} : {{ value }}</pre>
+    {% endfor %}
+{% endfor %}
+<p><a href="/">Retour à l'accueil</a></p>
+</html>
