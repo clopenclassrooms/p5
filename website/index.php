@@ -1,10 +1,10 @@
 <?php
 
-require_once ('./models/postManager.php');
-require_once ('./models/post.php');
-require_once ('./models/database.php');
-require_once ('./controllers/postController.php');
-require_once ('./vendor/autoload.php');
+require_once './models/postManager.php';
+require_once './models/post.php';
+require_once './models/database.php';
+require_once './controllers/postController.php';
+require_once './vendor/autoload.php';
 
 use models\PostManager;
 use models\Post;
