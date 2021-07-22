@@ -8,7 +8,7 @@ class Post
 {
     //int max value is 2147483647 on 32bit system and 9223372036854775807 on 64bit system.
     //So max date is 19 January 2038 on 32bit system and 11 April 2262 on 64bit system.
-    private int $id;
+    private int $post_id;
 
     private string $leadParagraph;
     private string $creationDate;
@@ -26,7 +26,7 @@ class Post
 
     public function To_array():array
     {
-        $array = ['id' => $this->id, 
+        $array = ['id' => $this->post_id, 
                   'title' => $this->title, 
                   'content' => $this->content, 
                   'creationDate' => $this->creationDate,
@@ -37,7 +37,7 @@ class Post
     // GETTERS //
     public function Get_id()
     {
-        return $this->id;
+        return $this->post_id;
     }
  
     public function Get_title()
@@ -71,13 +71,13 @@ class Post
     }
  
     // SETTERS //
-    public function Set_id(int $id)
+    public function Set_id(int $post_id)
     {
-        if (!is_integer($id)  || ($id === null)) {
+        if (!is_integer($post_id)  || ($post_id === null)) {
             throw new \RuntimeException('the variable id must be an integer and not null');
         }
  
-        $this->id = $id;
+        $this->post_id = $post_id;
     }
 
     public function Set_title(string $title)

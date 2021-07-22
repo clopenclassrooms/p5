@@ -97,13 +97,13 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        ?><?= esc_html__($twig->render('diplayOnePost.twig',[
+        ?><?= $twig->render('diplayOnePost.twig',[
                                                     'post' => $post->To_array(),
                                                     'comments' => $comments,
                                                     'add_comment' => $add_comment,
                                                     'add_comment_result' => $add_comment_result,
                                                     'is_log' => $is_log
-                                                ])); ?><?php
+                                                ]); ?><?php
     }
     public function DisplayAllPosts()
     {

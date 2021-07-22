@@ -87,7 +87,7 @@ class Router
                 break;
             case "display_post" : 
                 
-                $post_id = (integer) intval($variables_receved['post_id']);
+                $post_id = (int) $variables_receved['post_id'];
 
                 if ($variables_receved['add_comment'] == 1 && $_SESSION['isLog'] = true)
                 {
@@ -172,12 +172,12 @@ class Router
 
                 ?>
                 <h1>Accueil</h1><br>
-                <a href='/display_post/?post_id=1'>Display post 1</a><br>
+                <a href='/display_post/?post_id=20'>Display post 20</a><br>
                 <a href='/display_all_posts'>Display all post</a><br>
                 <a href='/create_new_post_page/'>Create new post </a><br>
                 <a href='/user_create_page/'>Create user</a><br><br>
                 <a href='/comment_validation/'>Valide comment</a><br><br>
-                <a href='/edit_post/?post_id=1'>Modifier un post</a><br><br>
+                <a href='/edit_post/?post_id=20'>Modifier un post</a><br><br>
                 <a href='/delete_post/'>supprimer des posts</a><br><br>
                 <?php
                 break;

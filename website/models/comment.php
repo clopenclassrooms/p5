@@ -5,7 +5,7 @@ namespace models;
 
 class Comment
 {
-  protected int $id,$postID,$author_user_id;
+  protected int $comment_id,$postID,$author_user_id;
   protected string $comment,$author_login;
   protected bool $validated;
   protected $creationDate;
@@ -20,7 +20,7 @@ class Comment
   public function To_array():array
   {
       $array = [
-                'id' => $this->id, 
+                'id' => $this->comment_id, 
                 'comment' => $this->comment, 
                 'validated' => $this->validated, 
                 'creationDate' => $this->creationDate,
@@ -35,7 +35,7 @@ class Comment
 
   public function Get_id()
   {
-    return $this->id;
+    return $this->comment_id;
   }
  
   public function Get_comment()
@@ -69,14 +69,14 @@ class Comment
   }
 
 
-  public function Set_id($id)
+  public function Set_id($comment_id)
   {
-    if (!is_integer($id) || ($id === null))
+    if (!is_integer($comment_id) || ($comment_id === null))
     {
         throw new \RuntimeException('the variable id must be an integer and not null');
     }
  
-    $this->id = $id;
+    $this->comment_id = $comment_id;
   }
  
   public function Set_comment($comment)

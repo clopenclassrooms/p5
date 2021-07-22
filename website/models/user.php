@@ -6,7 +6,7 @@ session_start();
  
 class User
 {
-    private int $id;
+    private int $user_id;
 
     private string $firstname;
     private string $lastname;
@@ -22,14 +22,14 @@ class User
 
     public function To_array():array
     {
-        $array = ['id' => $this->id, 'login' => $this->login];
+        $array = ['id' => $this->user_id, 'login' => $this->login];
         return $array;
     }
 
     // GETTERS //
     public function Get_id()
     {
-        return $this->id;
+        return $this->user_id;
     }
  
     public function Get_firstname()
@@ -53,13 +53,13 @@ class User
     }
  
     // SETTERS //
-    public function Set_id($id)
+    public function Set_id($user_id)
     {
-        if (!is_integer($id)  || empty($id)) {
+        if (!is_integer($user_id)  || empty($user_id)) {
             throw new \RuntimeException('the variable id must be an integer and empty');
         }
  
-        $this->id = $id;
+        $this->user_id = $user_id;
     }
 
     public function Set_firstname(string $firstname)
