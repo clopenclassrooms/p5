@@ -30,9 +30,9 @@ class UserManager
         }
         if ($execute){
             return true;
-        }else{
-            return false;
         }
+        return false;
+        
         
     }
     public function Get_User($login):User
@@ -41,7 +41,7 @@ class UserManager
         $user = new User();
         try{
             $prepare = $this->PHPDataObject->prepare($sql);
-            $execute = $prepare->execute([$login]);
+            $prepare->execute([$login]);
             $fetch = $prepare->fetch();
             $user->Set_id(intval($fetch['id']));
             $user->Set_firstname($fetch['firstname']);

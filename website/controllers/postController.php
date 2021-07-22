@@ -13,11 +13,9 @@ class PostController
         $result = $postManager->Delete_Posts($posts_id);
         if ($result)
         {
-            echo "posts supprimés";
-        }else 
-        {
-            echo "post NON supprimées";
+            return true;
         }
+        return false;
     }
 
     public function Display_post_delete_page()
@@ -28,7 +26,7 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false, //'/tmp',
         ]);
-        echo $twig->render('Display_post_delete_page.twig',['posts' => $posts]); 
+        ?><?=  $twig->render('Display_post_delete_page.twig',['posts' => $posts]); ?><?php
     }
     public function Modify_post($post_id,$post_title,$post_leadParagraph,$post_content)
     {
@@ -37,10 +35,9 @@ class PostController
         $result = $postManager->Modify_post($post_title,$post_leadParagraph,$post_content,$post_modificationDate, $post_id);
         if ($result)
         {
-            echo "modification faite";
-        }else{
-            echo "modification NON faite : ERREUR";
-        }
+            return true;
+        }else
+        return false;
     }
     public function Edit_post($post_id)
     {
@@ -51,9 +48,9 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        echo $twig->render('editpost.twig',[
+        ?><?=  $twig->render('editpost.twig',[
                                                     'post' => $post->To_array()
-                                                ]); 
+                                                ]); ?><?php
     }
     public function Add_post($title,$leadParagraph,$content)
     {
@@ -65,11 +62,9 @@ class PostController
         $postManager = new Postmanager;
         $result = $postManager->Add_post($title,$leadParagraph,$content,$author_id_user,$creationDate,$modificationDate);
         if ($result){
-            echo "<br>post créé";
-        }else{
-            echo "<br>post NON créé";
+            return true;
         }
-        echo "<br><a href='/'>Accueil</a>";
+        return false;
     }
 
     public function Get_create_new_poste_page()
@@ -78,7 +73,7 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        echo $twig->render('create_new_poste_page.twig'); 
+        ?><?= $twig->render('create_new_poste_page.twig'); ?><?php
     }
 
     public function DisplayPost(int $post_id, bool $add_comment, ?string $comment, ?int $author_id_user)
@@ -102,13 +97,13 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        echo $twig->render('diplayOnePost.twig',[
+        ?><?= $twig->render('diplayOnePost.twig',[
                                                     'post' => $post->To_array(),
                                                     'comments' => $comments,
                                                     'add_comment' => $add_comment,
                                                     'add_comment_result' => $add_comment_result,
                                                     'is_log' => $is_log
-                                                ]); 
+                                                ]); ?><?php
     }
     public function DisplayAllPosts()
     {
@@ -118,7 +113,7 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false, //'/tmp',
         ]);
-        echo $twig->render('DisplayAllPosts.twig',['posts' => $posts]); 
+        ?><?= $twig->render('DisplayAllPosts.twig',['posts' => $posts]); ?><?php
         
     }
 }

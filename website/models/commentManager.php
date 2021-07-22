@@ -26,7 +26,7 @@ class CommentManager
         $sql="UPDATE `comment` SET `validated` = 1 WHERE " . $sql_condition;
         try{
             $prepare = $this->PHPDataObject->prepare($sql);
-            $execute = $prepare->execute();
+            $prepare->execute();
         }catch(Exception $e) {
             return false;
         }
@@ -99,9 +99,9 @@ class CommentManager
         }
         if ($execute){
             return true;
-        }else{
-            return false;
         }
+        return false;
+        
     }
 
     public function Get_Comments($post_id)
@@ -117,7 +117,7 @@ class CommentManager
         $comments = [];
         try{
             $prepare = $this->PHPDataObject->prepare($sql);
-            $execute = $prepare->execute([$post_id]);
+            $prepare->execute([$post_id]);
             while ($fetch = $prepare->fetch()) {
                 // validated ?
                 $comment = new Comment;

@@ -13,10 +13,9 @@ class UserController
         $userManager = new Usermanager;
         $result = $userManager->Create_user($firstname, $lastname, $login, $password);
         if ($result){
-            echo "<br>utilisateur créé";
-        }else{
-            echo "<br>utilisateur NON créé";
+            return true;
         }
+        return false;
 
     }
     public function Get_user_creation_page()
@@ -25,7 +24,7 @@ class UserController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        echo $twig->render('userCreationPage.twig'); 
+        ?><?= $twig->render('userCreationPage.twig'); ?><?php
     }
 
     public function Logging_user($login,$password)
@@ -33,10 +32,8 @@ class UserController
         $userManager = new Usermanager;
         $result = $userManager->Logging_user($login, $password);
         if ($result){
-            echo "<br>utilisateur logué";
-        }else{
-            echo "<br>utilisateur NON logué";
+            return true;
         }
-        ?><br><a href='/'>retour a l'accueil</a><?php
+        return false;
     }
 }

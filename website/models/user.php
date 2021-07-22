@@ -55,7 +55,6 @@ class User
     // SETTERS //
     public function Set_id($id)
     {
-      echo $id;
         if (!is_integer($id)  || empty($id)) {
             throw new \RuntimeException('the variable id must be an integer and empty');
         }

@@ -17,17 +17,15 @@ class CommentController
             'cache' => false, //'/tmp',
             'debug' => true,
         ]);
-        echo $twig->render('comments_for_validation.twig',['comments' => $comments]); 
+        ?><?= $twig->render('comments_for_validation.twig',['comments' => $comments]); ?><?php
     }
     public function comment_validation($comments_valided)
     {
         $commentManager = new CommentManager;
         $check_validation = $commentManager->comment_validation($comments_valided);
         if ($check_validation) {
-            echo "<br>commentaires validé";
-        }else
-        {
-            echo "<br>erreur de validation de commentaires";
+            return true;
         }
+        return false;
     }
 }

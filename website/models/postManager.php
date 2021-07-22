@@ -39,9 +39,9 @@ class PostManager
         }
         if ($execute){
             return true;
-        }else{
-            return false;
         }
+        return false;
+        
     }
 
     public function Modify_post($post_title,$post_leadParagraph,$post_content,$post_modificationDate, $post_id)
@@ -92,7 +92,7 @@ class PostManager
         $post = new Post();
         try{
             $prepare = $this->PHPDataObject->prepare($sql);
-            $execute = $prepare->execute([$post_id]);
+            $prepare->execute([$post_id]);
             $fetch = $prepare->fetch();
             $post->Set_id(intval($fetch['id']));
             $post->Set_title($fetch['title']);
@@ -110,7 +110,7 @@ class PostManager
         $posts = [];
         try{
             $prepare = $this->PHPDataObject->prepare($sql);
-            $execute = $prepare->execute();
+            $prepare->execute();
             while ($fetch = $prepare->fetch()) {
                 $post = new Post();
                 $post->Set_id(intval($fetch['id']));
