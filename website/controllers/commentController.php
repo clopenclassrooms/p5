@@ -17,7 +17,7 @@ class CommentController
             'cache' => false, //'/tmp',
             'debug' => true,
         ]);
-        ?><?= $twig->render('comments_for_validation.twig',['comments' => $comments]); ?><?php
+        ?><?= esc_html__($twig->render('comments_for_validation.twig',['comments' => $comments])); ?><?php
     }
     public function comment_validation($comments_valided)
     {

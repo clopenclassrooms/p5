@@ -26,7 +26,7 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false, //'/tmp',
         ]);
-        ?><?=  $twig->render('Display_post_delete_page.twig',['posts' => $posts]); ?><?php
+        ?><?=  esc_html__($twig->render('Display_post_delete_page.twig',['posts' => $posts])); ?><?php
     }
     public function Modify_post($post_id,$post_title,$post_leadParagraph,$post_content)
     {
@@ -48,9 +48,9 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        ?><?=  $twig->render('editpost.twig',[
+        ?><?=  esc_html__($twig->render('editpost.twig',[
                                                     'post' => $post->To_array()
-                                                ]); ?><?php
+                                                ])); ?><?php
     }
     public function Add_post($title,$leadParagraph,$content)
     {
@@ -73,7 +73,7 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        ?><?= $twig->render('create_new_poste_page.twig'); ?><?php
+        ?><?= esc_html__($twig->render('create_new_poste_page.twig')); ?><?php
     }
 
     public function DisplayPost(int $post_id, bool $add_comment, ?string $comment, ?int $author_id_user)
@@ -97,13 +97,13 @@ class PostController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        ?><?= $twig->render('diplayOnePost.twig',[
+        ?><?= esc_html__($twig->render('diplayOnePost.twig',[
                                                     'post' => $post->To_array(),
                                                     'comments' => $comments,
                                                     'add_comment' => $add_comment,
                                                     'add_comment_result' => $add_comment_result,
                                                     'is_log' => $is_log
-                                                ]); ?><?php
+                                                ])); ?><?php
     }
     public function DisplayAllPosts()
     {

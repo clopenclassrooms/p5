@@ -24,7 +24,7 @@ class UserController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        ?><?= $twig->render('userCreationPage.twig'); ?><?php
+        ?><?= esc_html__($twig->render('userCreationPage.twig')); ?><?php
     }
 
     public function Logging_user($login,$password)

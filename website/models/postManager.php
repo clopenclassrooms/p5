@@ -23,7 +23,7 @@ class PostManager
         }
         $ids = substr($ids, 0, -2);
         $sql = $sql . "(" . $ids . ")";
-        var_dump($sql);
+
         try{
             
             $this->PHPDataObject->beginTransaction();
@@ -94,7 +94,7 @@ class PostManager
             $prepare = $this->PHPDataObject->prepare($sql);
             $prepare->execute([$post_id]);
             $fetch = $prepare->fetch();
-            $post->Set_id(intval($fetch['id']));
+            $post->Set_id((int)$fetch['id']);
             $post->Set_title($fetch['title']);
             $post->Set_Content($fetch['content']);
             $post->Set_creationDate($fetch['creationDate']);
@@ -113,7 +113,7 @@ class PostManager
             $prepare->execute();
             while ($fetch = $prepare->fetch()) {
                 $post = new Post();
-                $post->Set_id(intval($fetch['id']));
+                $post->Set_id((int)$fetch['id']);
                 $post->Set_title($fetch['title']);
                 $post->Set_Content($fetch['content']);
                 $post->Set_creationDate($fetch['creationDate']);

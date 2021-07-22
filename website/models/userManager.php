@@ -43,7 +43,7 @@ class UserManager
             $prepare = $this->PHPDataObject->prepare($sql);
             $prepare->execute([$login]);
             $fetch = $prepare->fetch();
-            $user->Set_id(intval($fetch['id']));
+            $user->Set_id((int)$fetch['id']);
             $user->Set_firstname($fetch['firstname']);
             $user->Set_lastname($fetch['lastname']);
             $user->Set_login($fetch['login']);

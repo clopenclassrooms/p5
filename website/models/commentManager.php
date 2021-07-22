@@ -54,7 +54,7 @@ class CommentManager
             $execute = $prepare->execute();
             while ($fetch = $prepare->fetch()) {
                 $comment = new Comment;
-                $comment->Set_id(intval((string)$fetch['comment_id']));
+                $comment->Set_id((int)$fetch['comment_id']);
                 $comment->Set_comment((string) $fetch['comment_comment']);
                 $comment->Set_creationDate($fetch['comment_creationDate']);
                 $comment->Set_author_login((string)$fetch['user_login']);
@@ -121,7 +121,7 @@ class CommentManager
             while ($fetch = $prepare->fetch()) {
                 // validated ?
                 $comment = new Comment;
-                $comment->Set_id(intval((string)$fetch['comment.id']));
+                $comment->Set_id((int)$fetch['comment.id']);
                 $comment->Set_comment((string) $fetch['comment']);
                 $comment->Set_creationDate($fetch['creationDate']);
                 $comment->Set_author_login((string)$fetch['login']);
