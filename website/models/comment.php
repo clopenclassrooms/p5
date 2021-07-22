@@ -71,7 +71,7 @@ class Comment
 
   public function Set_id($id)
   {
-    if (!is_integer($id) || is_null($id))
+    if (!is_integer($id) || ($id === null))
     {
         throw new \RuntimeException('the variable id must be an integer and not null');
     }
@@ -91,9 +91,8 @@ class Comment
  
   public function Set_validated($validated)
   {
-    if (!is_bool($validated) || is_null($validated))
+    if (!is_bool($validated) || ($validated === null))
     {
-      var_dump($validated);
       throw new \RuntimeException('the variable validated must be an boolean and not null');
     }
  
@@ -102,9 +101,8 @@ class Comment
  
   public function Set_creationDate($creationDate)
   {
-    if (!strtotime($creationDate) || is_null($creationDate))
+    if (!strtotime($creationDate) || ($creationDate === null))
     {
-      var_dump(($creationDate));
       throw new \RuntimeException('the variable creationDate must be an date and not null');
     }
  
@@ -133,7 +131,7 @@ class Comment
 
   public function Set_postID($postID)
   {
-    if (!is_integer($postID) || is_null($postID))
+    if (!is_integer($postID) || ($postID === null))
     {
       throw new \RuntimeException('the variable postID must be an string and not null');
     }

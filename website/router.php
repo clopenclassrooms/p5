@@ -62,7 +62,6 @@ class Router
         {
             case "delete_post" :
                 $controler = new PostController;
-                var_dump($variables_receved);
                 if ($variables_receved['posts_id'])
                 {
                     $posts_id = $variables_receved['posts_id'];
@@ -72,12 +71,10 @@ class Router
                 }
                 break;
             case "edit_post" :  
-                echo "modify post";
                 $controler = new PostController;
                 $controler->edit_post($variables_receved['post_id']);
                 break;
             case "comment_validation" : 
-                echo "comment_validation";
                 $controler = new CommentController;
                 if (isset($variables_receved['comments_valided']))
                 {
@@ -89,7 +86,6 @@ class Router
 
                 break;
             case "display_post" : 
-                echo "display_post";
                 
                 $post_id = (integer) intval($variables_receved['post_id']);
 
@@ -107,17 +103,14 @@ class Router
                 $controler->DisplayPost($post_id, $add_comment,$comment,$author_id_user);
                 break;
             case "display_all_posts" : 
-                echo "display_all_posts";
                 $controler = new PostController;
                 $controler->DisplayAllPosts();
                 break;
             case "create_new_post_page" : 
-                echo "create_new_post_page";
                 $controler = new PostController;
                 $controler->Get_create_new_poste_page();
                 break;
             case "create_new_post" : 
-                echo "create_new_post";
                 $controler = new PostController;
                 $title = $variables_receved['title'];
                 $leadParagraph = $variables_receved['leadParagraph'];
@@ -125,7 +118,6 @@ class Router
                 $controler->Add_post($title,$leadParagraph,$content);
                 break;
             case "modify_post" : 
-                echo "modify_post";
                 $controler = new PostController;
                 $post_id = $variables_receved['post_id'];
                 $post_title = $variables_receved['post_title'];
@@ -190,7 +182,7 @@ class Router
                 <?php
                 break;
             default :
-                echo "Erreur dans l'url";
+            print("Erreur dans l'url");
         }
     }
 }

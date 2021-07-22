@@ -73,7 +73,7 @@ class Post
     // SETTERS //
     public function Set_id(int $id)
     {
-        if (!is_integer($id)  || is_null($id)) {
+        if (!is_integer($id)  || ($id === null)) {
             throw new \RuntimeException('the variable id must be an integer and not null');
         }
  
