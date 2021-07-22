@@ -4,17 +4,17 @@ namespace router;
 session_start();
 
 
-require_once './models/postManager.php';
-require_once './models/userManager.php';
-require_once './models/commentManager.php';
-require_once './models/post.php';
-require_once './models/user.php';
-require_once './models/comment.php';
-require_once './models/database.php';
-require_once './controllers/postController.php';
-require_once './controllers/userController.php';
-require_once './controllers/commentController.php';
-require_once './vendor/autoload.php';
+include_once './models/postManager.php';
+include_once './models/userManager.php';
+include_once './models/commentManager.php';
+include_once './models/post.php';
+include_once './models/user.php';
+include_once './models/comment.php';
+include_once './models/database.php';
+include_once './controllers/postController.php';
+include_once './controllers/userController.php';
+include_once './controllers/commentController.php';
+include_once './vendor/autoload.php';
 
 
 use models\PostManager;
@@ -153,7 +153,7 @@ class Router
                 if ($_SESSION['isLog'] == true)
                 {
                     ?>
-                    <p><span>bonjour <?php echo $_SESSION['firstname']; ?><span></p>
+                    <p><span>bonjour <?= $_SESSION['firstname']; ?><span></p>
                     <p><a href="/?sign_out=1">déconnection</a></p>
                     <?php
                 }else
