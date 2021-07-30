@@ -12,6 +12,8 @@ class User
     private string $lastname;
     private string $login;
     private string $password;
+    private string $valided;
+    private string $is_admin;
 
 
 
@@ -22,11 +24,28 @@ class User
 
     public function To_array():array
     {
-        $array = ['id' => $this->user_id, 'login' => $this->login];
+        $array = [
+                    'user_id' => $this->user_id, 
+                    'firstname' => $this->firstname,
+                    'lastname' => $this->lastname,
+                    'login' => $this->login,
+                    'valided' => $this->valided,
+                    'is_admin' => $this->is_admin,
+                 ];
         return $array;
     }
 
     // GETTERS //
+    public function Get_valided()
+    {
+        return $this->valided;
+    }
+
+    public function Get_is_admin()
+    {
+        return $this->is_admin;
+    }
+
     public function Get_id()
     {
         return $this->user_id;
@@ -53,10 +72,26 @@ class User
     }
  
     // SETTERS //
+    public function Set_valided($valided)
+    {
+        if (!is_integer($valided)) {
+            throw new \RuntimeException('the variable valided must be an integer');
+        }
+ 
+        $this->valided = $valided;
+    }
+    public function Set_is_admin($is_admin)
+    {
+        if (!is_integer($is_admin)) {
+            throw new \RuntimeException('the variable is_admin must be an integer');
+        }
+ 
+        $this->is_admin = $is_admin;
+    }
     public function Set_id($user_id)
     {
-        if (!is_integer($user_id)  || empty($user_id)) {
-            throw new \RuntimeException('the variable id must be an integer and empty');
+        if (!is_integer($user_id)) {
+            throw new \RuntimeException('the variable user_id must be an integer');
         }
  
         $this->user_id = $user_id;

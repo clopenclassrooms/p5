@@ -1,39 +1,87 @@
 <html>
-    <h1>Title : {{post.title}}</h1>
-    <p>id : {{post.id}}</p>
-    <p>content : {{post.content}}</p>
-    <p>creationDate : {{post.creationDate}}</p>
-    <p>modificationDate : {{post.modificationDate}}</p>
-    <p>add_comment_result : {{add_comment_result}}</p>
-    {% if add_comment == true %}
-        {% if add_comment_result == true %}
-            <div>Votre commentaire a été rajouté. Il est en attente de validation par l'administrateur du site</div>
-            {% else %}
-            <div>Erreur, votre commentaire n'a pas été rajouté</div>
-        {% endif %}
-    {% endif %}
-    {{is_log}}
-    {% if is_log == true %}
-    <form methode="post" action="/display_post/">
-        <div>
-            <input name="post_id" type="hidden" value="{{post.id}}">
-            <input name="add_comment" type="hidden" value="1">
-            <span>Rajouter un nouveau commentaire : </span>
-            <input name="comment" type="textarea" value=" ">
-        </div>
-    </form>
-    {% endif %}
-    {% if (comments | length) > 0 %}
-    <div>
-        <div><span>commentaires : </span></div>
-        {% for comment in comments %}
-            {% for key, value in comment %}
+{{ block("head", "head.twig") }}
+    <body>
+    {{ block("Navigation", "navigation.twig") }}
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>{{post.title}}</h2>
+                        <hr class="star-primary">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <p><strong>{{post.leadParagraph}}</strong></p>
+                        <p>{{post.content}}</p>
+                        <p><i>Auteur : {{ post.author }} | Date de création : {{post.creationDate}} | Dernière modification : {{post.modificationDate}}</i></p>
+                    </div>
+                <div>
             <div>
-              <pre style="background: #eee">{{ key }} : {{ value }}</pre>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h3>commentaires<h3>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                    {% if add_comment == true %}
+                        {% if add_comment_result == true %}
+                            {% if isLog == 0 %}
+                            <p>Votre commentaire a été rajouté. Il est en attente de validation par l'administrateur du site</p>
+                            {% endif %}
+                            {% else %}
+                            <p>Erreur, votre commentaire n'a pas été rajouté</p>
+                        {% endif %}
+                    {% endif %}
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <form methode="post" action="/display_post/" name="sentMessage" id="contactForm" novalidate="">
+                                
+                                <input name="post_id" type="hidden" value="{{post.id}}">
+                                <input name="add_comment" type="hidden" value="1">
+                                
+                                <div class="row control-group">
+                                    <div class="form-group col-xs-12 d-flex justify-content-center">
+                                        <textarea class="border form-control w-50" name="comment" rows="5" placeholder="Ajouter un nouveau commentaire..."></textarea>
+                                    </div>
+                                </div>                       
+                                <br>
+                                <div id="success"></div>
+                                <div class="row">
+                                    <div class="form-group col-xs-12">
+                                        <button type="submit" class="btn btn-success btn-lg">Envoyer</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        {% if (comments | length) > 0 %}
+                        <div>
+                            
+                            <hr>
+                            {% for comment in comments %}
+                                {% if comment.validated == true %}
+                                <p><strong>{{ comment.comment }}</strong></p>
+                                <p>Auteur : {{ comment.author_login }} | date : {{ comment.creationDate }}</p>
+                                <hr>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <div>
+                            <a href="/">Retour à l'accueil</a>
+                        </div>  
+                    </div>
+                <div>
             <div>
-            {% endfor %}
-        {% endfor %}
-    </div>
-    {% endif %}
-    <a href="/">Retour à l'accueil</a>
-<html>
+        </section>
+    </body>
+        {{ block("Footer", "footer.twig") }}
+</html>

@@ -11,11 +11,16 @@ class PostController
     {
         $postManager = new PostManager($posts_id);
         $result = $postManager->Delete_Posts($posts_id);
-        if ($result)
-        {
-            return true;
-        }
-        return false;
+        $loader = new \Twig\Loader\FilesystemLoader('/app/views');
+        $twig = new \Twig\Environment($loader, [
+            'cache' => false, //'/tmp',
+        ]);
+        $is_log = $_SESSION['isLog'];
+        ?><?=  $twig->render('delete_posts_result.twig',[
+                                              'isLog' => $is_log,
+                                              'firstname' => $_SESSION['firstname'],
+                                              'result' => $result,
+                                              ]); ?><?php
     }
 
     public function Display_post_delete_page()
@@ -33,53 +38,76 @@ class PostController
         $postManager = new PostManager();
         $post_modificationDate = date("Y-m-d H:i:s");
         $result = $postManager->Modify_post($post_title,$post_leadParagraph,$post_content,$post_modificationDate, $post_id);
-        if ($result)
-        {
-            return true;
-        }else
-        return false;
+
+        $is_log = $_SESSION['isLog'];
+
+        $loader = new \Twig\Loader\FilesystemLoader('/app/views');
+        $twig = new \Twig\Environment($loader, [
+            'cache' => false //'/tmp',
+        ]);
+        ?><?=  $twig->render('editpost_result.twig',[
+                                                'isLog' => $is_log,
+                                                'firstname' => $_SESSION['firstname'],
+                                                'result' => $result,
+                                                ]); ?><?php
     }
     public function Edit_post($post_id)
     {
         $postManager = new PostManager();
         $post = $postManager->Get_Post($post_id);
+        $is_log = $_SESSION['isLog'];
 
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        ?><?=  esc_html__($twig->render('editpost.twig',[
-                                                    'post' => $post->To_array()
-                                                ])); ?><?php
+        ?><?=  $twig->render('editpost.twig',[
+                                                'isLog' => $is_log,
+                                                'firstname' => $_SESSION['firstname'],
+                                                'post' => $post->To_array()
+                                                ]); ?><?php
     }
     public function Add_post($title,$leadParagraph,$content)
     {
-        $author_id_user = $_SESSION['id'];
+        $author_id_user = $_SESSION['user_id'];
         date_default_timezone_set('UTC');
         $creationDate = date("Y-m-d H:i:s");  
         $modificationDate = date("Y-m-d H:i:s");
+        $is_log = $_SESSION['isLog'];
 
         $postManager = new Postmanager;
         $result = $postManager->Add_post($title,$leadParagraph,$content,$author_id_user,$creationDate,$modificationDate);
-        if ($result){
-            return true;
-        }
-        return false;
+        
+        $loader = new \Twig\Loader\FilesystemLoader('/app/views');
+        $twig = new \Twig\Environment($loader, [
+            'cache' => false //'/tmp',
+        ]);
+        ?><?= $twig->render('create_new_poste_result.twig',[
+                                                          'isLog' => $is_log,
+                                                          'firstname' => $_SESSION['firstname'],
+                                                          'result' => $result,
+                                                         ]); ?><?php
     }
 
     public function Get_create_new_poste_page()
     {
+        $is_log = $_SESSION['isLog'];
+
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        ?><?= esc_html__($twig->render('create_new_poste_page.twig')); ?><?php
+        ?><?= $twig->render('create_new_poste_page.twig',[
+                                                          'isLog' => $is_log,
+                                                          'firstname' => $_SESSION['firstname'],
+        ]); ?><?php
     }
 
-    public function DisplayPost(int $post_id, bool $add_comment, ?string $comment, ?int $author_id_user)
+    public function DisplayPost(int $post_id, ?bool $add_comment, ?string $comment, ?int $author_id_user)
     {
         $postManager = new PostManager();
         $post = $postManager->Get_Post($post_id);
+
 
         if ($add_comment == true)
         {
@@ -102,18 +130,31 @@ class PostController
                                                     'comments' => $comments,
                                                     'add_comment' => $add_comment,
                                                     'add_comment_result' => $add_comment_result,
-                                                    'is_log' => $is_log
+                                                    'isLog' => $is_log,
+                                                    'firstname' => $_SESSION['firstname'],
                                                 ]); ?><?php
     }
-    public function DisplayAllPosts()
+    public function DisplayAllPosts(bool $admin = false)
     {
+        if ($admin && $_SESSION['isLog']){
+            $admin = 1;
+        }else{
+            $admin = 0;
+        }
         $postManager = new PostManager();
         $posts = $postManager->Get_Posts();
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false, //'/tmp',
         ]);
-        ?><?= $twig->render('DisplayAllPosts.twig',['posts' => $posts]); ?><?php
+        ?><?= $twig->render('DisplayAllPosts.twig',
+                            [
+                                'isLog' => $_SESSION['isLog'],
+                                'firstname' => $_SESSION['firstname'],
+                                'posts' => $posts,
+                                'admin' => $admin,
+                            ]); 
+        ?><?php
         
     }
 }

@@ -1,0 +1,76 @@
+    {% block Navigation %} 
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Martin Durand</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/display_all_posts/">Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact/">Contact</a>
+                    </li>
+
+                    {% if isLog == true %}
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/user_management/">Gestion des utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/create_new_post_page/">Créer un post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/display_all_posts/?admin=1">Modifier / Supprimer un post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/user_create_page/">Créer un compte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger" href="/comment_validation/">Valider les commentaires</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+
+
+                <!-- /.navbar-collapse -->
+
+        <div>
+        <div>
+            {% if isLog == false %}
+            <form action="/logging_user/" method="post">
+                <div  class="d-flex flex-row">
+                    <div class="d-flex  flex-column">
+                        <div class="d-flex flex-row">
+                                <input type="text" value="login" name="login" />
+                        </div>
+                        <div class="d-flex flex-row">
+                            <input type="password" value="password" name="password" />
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                        <div>
+                            <input type="submit" value="OK">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% else %}
+            <div class="d-flex flex-column">
+                <div>
+                    <span class="text-white">Bonjour {{ firstname }}
+                </div>
+                <div>
+                    <a href="/?sign_out=1">Déconnection </a>
+                </div>
+            </div>
+            {% endif %}  
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+    {% endblock %}

@@ -14,6 +14,8 @@ require_once './models/database.php';
 require_once './controllers/postController.php';
 require_once './controllers/userController.php';
 require_once './controllers/commentController.php';
+require_once './controllers/mailController.php';
+require_once './controllers/homepageController.php';
 require_once './vendor/autoload.php';
 
 
@@ -27,6 +29,8 @@ use models\Database;
 use controllers\postController;
 use controllers\userController;
 use controllers\CommentController;
+use controllers\MailController;
+use controllers\homepageController;
 
 
 
@@ -60,6 +64,32 @@ class Router
         $variables_receved = $this->Get_redirection_variables();
         switch ($action_request) 
         {
+            case "user_management" : 
+                $controler = new UserController;
+                $change_right = $variables_receved['change_right'];
+                if ($change_right == "1")
+                {
+                    $users_from_post = $variables_receved['users_from_post'];
+                    $user_valided = $variables_receved['user_valided'];
+                    $user_is_admin = $variables_receved['user_is_admin'];
+                }
+                $controler->Manage_user_right($change_right,$users_from_post,$user_valided,$user_is_admin);
+                break;
+            case "contact" :
+                $controler = new MailController;
+                if ($variables_receved['send_mail'] == 1)
+                {
+                    $firstname = $variables_receved['firstname'];
+                    $lastname = $variables_receved['lastname'];
+                    $email = $variables_receved['email'];
+                    $message = $variables_receved['message'];
+                    $controler->Send_mail($firstname,$lastname,$email,$message);
+                }else
+                {
+                    
+                    $controler->Display_mail_form();
+                }
+                break;
             case "delete_post" :
                 $controler = new PostController;
                 if ($variables_receved['posts_id'])
@@ -88,23 +118,23 @@ class Router
             case "display_post" : 
                 
                 $post_id = (int) $variables_receved['post_id'];
-
-                if ($variables_receved['add_comment'] == 1 && $_SESSION['isLog'] = true)
+                if ($variables_receved['add_comment'] == 1 && $_SESSION['isLog'] == true)
                 {
                     $add_comment = true;
                     $comment = (string) $variables_receved['comment'];
                     $author_id_user = $_SESSION['user_id'];
-                }else{
-                    $add_comment = false;
-                    $comment = NULL;
-                    $author_id_user = NULL;
+                }elseif ($variables_receved['add_comment'] == 1 && $_SESSION['isLog'] == false){
+                    $add_comment = true;
+                    $comment = $variables_receved['comment'];;
+                    $author_id_user = 0;
                 }
                 $controler = new PostController;
                 $controler->DisplayPost($post_id, $add_comment,$comment,$author_id_user);
                 break;
             case "display_all_posts" : 
                 $controler = new PostController;
-                $controler->DisplayAllPosts();
+                $admin = (bool) $variables_receved['admin'];
+                $controler->DisplayAllPosts($admin);
                 break;
             case "create_new_post_page" : 
                 $controler = new PostController;
@@ -144,42 +174,14 @@ class Router
                 $login = $variables_receved['login'];
                 $password = $variables_receved['password'];
                 $controler->Logging_user($login,$password);
-                break;
+                $action_request = "";
             case "" :
                 if ($variables_receved['sign_out'] == 1)
                 {
                     $_SESSION['isLog'] =     false;
                 }
-                if ($_SESSION['isLog'] == true)
-                {
-                    ?>
-                    <p><span>bonjour <?= $_SESSION['firstname']; ?><span></p>
-                    <p><a href="/?sign_out=1">déconnection</a></p>
-                    <?php
-                }else
-                {
-                    ?>
-                    <p>logging : </p>
-                    <form action="/logging_user/" method="post">
-                        <p>login : <input type="text" name="login" /></p>
-                        <p>password : <input type="text" name="password" /></p>
-                        <p><input type="submit" value="OK"></p>
-                    </form>
-                    <br>
-                    <?php
-                }
-                
-
-                ?>
-                <h1>Accueil</h1><br>
-                <a href='/display_post/?post_id=20'>Display post 20</a><br>
-                <a href='/display_all_posts'>Display all post</a><br>
-                <a href='/create_new_post_page/'>Create new post </a><br>
-                <a href='/user_create_page/'>Create user</a><br><br>
-                <a href='/comment_validation/'>Valide comment</a><br><br>
-                <a href='/edit_post/?post_id=20'>Modifier un post</a><br><br>
-                <a href='/delete_post/'>supprimer des posts</a><br><br>
-                <?php
+                $controler = new HomepageController;
+                $controler->Display_homepage();
                 break;
             default :
             print("Erreur dans l'url");

@@ -71,6 +71,7 @@ class PostManager
         $sql = "INSERT INTO `post` (`title`,`leadParagraph`, `content`, `author_id_user`, `creationDate`, `modificationDate` ) VALUES (?,?, ?, ?, ?, ?) ";
         try{
             $this->PHPDataObject->beginTransaction();
+            $this->PHPDataObject->setAttribute(Database::ATTR_ERRMODE, Database::ERRMODE_EXCEPTION);
             $prepare = $this->PHPDataObject->prepare($sql);
             $execute = $prepare->execute([$title,$leadParagraph,$content,$author_id_user,$creationDate,$modificationDate]);
             $this->PHPDataObject->commit();
@@ -88,17 +89,30 @@ class PostManager
     }
     public function Get_Post($post_id):Post
     {
-        $sql = "Select * FROM post WHERE id = ?";
+        $sql = "SELECT 
+                    post.id as post_id,
+                    post.title as post_title,
+                    post.leadParagraph as post_leadParagraph,
+                    post.content as post_content,
+                    post.creationDate as post_creationDate,
+                    post.modificationDate as post_modificationDate,
+                    user.login as post_author
+                FROM post 
+                INNER JOIN user 
+                    ON post.author_id_user = user.id
+                WHERE post.id = ?";
         $post = new Post();
         try{
             $prepare = $this->PHPDataObject->prepare($sql);
             $prepare->execute([$post_id]);
             $fetch = $prepare->fetch();
-            $post->Set_id((int)$fetch['id']);
-            $post->Set_title($fetch['title']);
-            $post->Set_Content($fetch['content']);
-            $post->Set_creationDate($fetch['creationDate']);
-            $post->Set_modificationDate($fetch['modificationDate']);
+            $post->Set_id((int)$fetch['post_id']);
+            $post->Set_title($fetch['post_title']);   
+            $post->Set_leadParagraph($fetch['post_leadParagraph']);
+            $post->Set_Content($fetch['post_content']);
+            $post->Set_creationDate($fetch['post_creationDate']);
+            $post->Set_modificationDate($fetch['post_modificationDate']);
+            $post->Set_author($fetch['post_author']);
         }catch(Exception $e) {
             return NULL;
         }
@@ -106,18 +120,29 @@ class PostManager
     }
     public function Get_Posts()
     {
-        $sql = "Select * FROM post";
+        $sql = "SELECT 
+                    post.id as post_id,
+                    post.title as post_title,
+                    post.leadParagraph as post_leadParagraph,
+                    post.content as post_content,
+                    post.creationDate as post_creationDate,
+                    post.modificationDate as post_modificationDate,
+                    user.login as post_author
+                FROM post INNER JOIN user ON post.author_id_user = user.id
+                ORDER BY post.creationDate DESC";
         $posts = [];
         try{
             $prepare = $this->PHPDataObject->prepare($sql);
             $prepare->execute();
             while ($fetch = $prepare->fetch()) {
                 $post = new Post();
-                $post->Set_id((int)$fetch['id']);
-                $post->Set_title($fetch['title']);
-                $post->Set_Content($fetch['content']);
-                $post->Set_creationDate($fetch['creationDate']);
-                $post->Set_modificationDate($fetch['modificationDate']);
+                $post->Set_id((int)$fetch['post_id']);
+                $post->Set_title($fetch['post_title']);
+                $post->Set_leadParagraph($fetch['post_leadParagraph']);
+                $post->Set_Content($fetch['post_content']);
+                $post->Set_creationDate($fetch['post_creationDate']);
+                $post->Set_modificationDate($fetch['post_modificationDate']);
+                $post->Set_author($fetch['post_author']);
                 array_push($posts,$post->To_array());
             }
 

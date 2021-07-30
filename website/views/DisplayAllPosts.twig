@@ -1,8 +1,38 @@
 <html>
-{% for post in posts %}
-    {% for key, value in post %}
-        <pre style="background: #eee">{{ key }} : {{ value }}</pre>
-    {% endfor %}
-{% endfor %}
-<p><a href="/">Retour à l'accueil</a></p>
+{{ block("head", "head.twig") }}
+    <body>
+    {{ block("Navigation", "navigation.twig") }}
+
+
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Liste des posts</h2>
+                    <hr class="star-primary">
+                </div>
+            </div>
+            <div class="row text-center">
+            {% for post in posts %}
+                <h3>
+                    <a class="" href="/display_post/?post_id={{ post.id }}">{{ post.title }}</a>
+                </h3>
+                {% if admin == true %}
+                <p>
+                    <a href="/delete_post/?posts_id[]={{ post.id }}">Supprimer le post</a> || <a href="/edit_post/?post_id={{ post.id }}">Modifier le post</a>
+                </p>
+                {% endif %}
+                <p>Auteur : {{ post.author }} | Date de création : {{ post.creationDate }} | Date de la dernière modification : {{ post.modificationDate }} </p>
+                <h4>{{ post.leadParagraph }}</h4>
+                
+            <hr>
+            {% endfor %}
+            <p><a href="/">Retour à l'accueil</a></p>            
+            <div>
+        </div>
+    </section>
+
+    </body>
+        {{ block("Footer", "footer.twig") }}
 </html>
+

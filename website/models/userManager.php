@@ -12,6 +12,43 @@ class UserManager
         $database = new Database();
         $this->PHPDataObject = $database;
     }
+    public function Set_user_right($users_need_modify,$users_valided,$users_is_admin)
+    {
+        $sql = "UPDATE `user` SET `valided` = ?, `is_admin` = ? WHERE `user`.`id` = ?"; 
+        $prepare = $this->PHPDataObject->prepare($sql);
+        foreach($users_need_modify as $user_need_modify)
+        {
+            if (in_array($user_need_modify, $users_valided))
+            {$valided = 1;}else{$valided = 0;}
+            if (in_array($user_need_modify, $users_is_admin))
+            {$is_admin = 1;}else{$is_admin = 0;}
+            $prepare->execute([$valided,$is_admin,$user_need_modify]);
+        }
+    }
+    public function Get_All_Users()
+    {
+        $sql = "Select * FROM user";
+        $users = [];
+        try{
+            $prepare = $this->PHPDataObject->prepare($sql);
+            $prepare->execute();
+            while ($fetch = $prepare->fetch()){
+                $user = new User();
+                $user->Set_id((int)$fetch['id']);
+                $user->Set_firstname($fetch['firstname']);
+                $user->Set_lastname($fetch['lastname']);
+                $user->Set_login($fetch['login']);
+                $user->Set_password($fetch['password']);
+                $user->Set_valided((int)$fetch['valided']);
+                $user->Set_is_admin((int)$fetch['is_admin']);
+                array_push($users,$user->To_array());
+            }
+
+        }catch(Exception $e) {
+            return false;
+        }
+        return $users;
+    }
 
     public function Create_user($firstname, $lastname, $login, $password):bool
     {

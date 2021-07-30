@@ -1,0 +1,38 @@
+
+Vous développerez une partie administration qui devra être accessible uniquement aux utilisateurs inscrits et validés.
+
+************************
+
+Sur la partie administration, vous veillerez à ce que seules les personnes ayant le droit “administrateur” aient l’accès ; les autres utilisateurs pourront uniquement commenter les articles (avec validation avant publication).
+
+***********************
+
+Dans le footer menu, il doit figurer un lien pour accéder à l’administration du blog.
+
+*******************
+
+un lien vers votre CV au format PDF ;
+
+************************
+
+Attention, votre blog doit être navigable aisément sur un mobile (téléphone mobile, phablette, tablette…). C’est indispensable ! C’est indispensable 
+
+************************
+
+Vous vous assurerez qu’il n’y a pas de failles de sécurité (XSS, CSRF, SQL Injection, session hijacking, upload possible de script PHP…).
+
+*************************
+
+Vous devrez créer l’ensemble des issues (tickets) correspondant aux tâches que vous aurez à effectuer pour mener à bien le projet.
+
+**************************
+
+Votre projet devra être suivi via SymfonyInsight, ou Codacy pour la qualité du code. Vous veillerez à obtenir une médaille d'argent au minimum (pour SymfonyInsight). En complément, le respect des PSR est recommandé afin de proposer un code compréhensible et facilement évolutif.
+
+*************************
+
+configurer postfix en relay mail.
+
+***************
+
+Le login doit être unique

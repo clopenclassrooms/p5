@@ -6,8 +6,6 @@
 
 class Post
 {
-    //int max value is 2147483647 on 32bit system and 9223372036854775807 on 64bit system.
-    //So max date is 19 January 2038 on 32bit system and 11 April 2262 on 64bit system.
     private int $post_id;
 
     private string $leadParagraph;
@@ -26,11 +24,15 @@ class Post
 
     public function To_array():array
     {
-        $array = ['id' => $this->post_id, 
-                  'title' => $this->title, 
+        $array = [
+                  'id' => $this->post_id, 
+                  'title' => $this->title,
+                  'leadParagraph' => $this->leadParagraph,
                   'content' => $this->content, 
                   'creationDate' => $this->creationDate,
-                  'modificationDate' => $this->modificationDate];
+                  'modificationDate' => $this->modificationDate,
+                  'author' => $this->author,
+                ];
         return $array;
     }
 

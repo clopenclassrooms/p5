@@ -21,9 +21,10 @@ class CommentManager
         $sql_condition = "";
         foreach($comments_valided as $comment_valided)
         {
-            $sql_condition = $sql_condition . "`id` = " . $comment_valided;
+            $sql_condition = $sql_condition . "`id` = " . $comment_valided . " OR ";
         }
-        $sql="UPDATE `comment` SET `validated` = 1 WHERE " . $sql_condition;
+        $sql_condition = substr($sql_condition, 0, -4);
+        $sql="UPDATE `comment` SET `validated` = 1 WHERE " . $sql_condition;    
         try{
             $prepare = $this->PHPDataObject->prepare($sql);
             $prepare->execute();
@@ -72,33 +73,43 @@ class CommentManager
 
     public function add_comment($comment, $author_id_user, $post_id)
     {
-        $sql = "INSERT INTO comment 
-                (
-                    `comment`,
-                    `creationDate`,
-                    `author_id_user`,
-                    `post_id`
-                ) VALUES
-                (
-                    ?,
-                    ?,
-                    ?,
-                    ?
-                )"; 
-        $creationDate = date("Y-m-d H:i:s"); 
-
-        try{
-            $this->PHPDataObject->beginTransaction();
-            $prepare = $this->PHPDataObject->prepare($sql);
-            $execute = $prepare->execute([$comment,$creationDate,$author_id_user,$post_id]);
-            $this->PHPDataObject->commit();
+        if ($comment != "")
+        {
+            $sql = "INSERT INTO comment 
+                    (
+                        `comment`,
+                        `creationDate`,
+                        `author_id_user`,
+                        `post_id`,
+                        `validated`
+                    ) VALUES
+                    (
+                        ?,
+                        ?,
+                        ?,
+                        ?,
+                        ?
+                    )";
+            $creationDate = date("Y-m-d H:i:s");
             
-        }catch(Exception $e) {
-            $this->PHPDataObject->rollback();
-            return false;
-        }
-        if ($execute){
-            return true;
+            if ($author_id_user != 0) {
+                $validated = 1;
+            } else {
+                $validated = 0;
+            }
+
+            try {
+                $this->PHPDataObject->beginTransaction();
+                $prepare = $this->PHPDataObject->prepare($sql);
+                $execute = $prepare->execute([$comment,$creationDate,$author_id_user,$post_id,$validated]);
+                $this->PHPDataObject->commit();
+            } catch (Exception $e) {
+                $this->PHPDataObject->rollback();
+                return false;
+            }
+            if ($execute) {
+                return true;
+            }
         }
         return false;
         
@@ -119,7 +130,6 @@ class CommentManager
             $prepare = $this->PHPDataObject->prepare($sql);
             $prepare->execute([$post_id]);
             while ($fetch = $prepare->fetch()) {
-                // validated ?
                 $comment = new Comment;
                 $comment->Set_id((int)$fetch['comment.id']);
                 $comment->Set_comment((string) $fetch['comment']);
@@ -133,6 +143,7 @@ class CommentManager
         }catch(Exception $e) {
             return NULL;
         }
+        
         return $comments;
     }
 }

@@ -121,7 +121,7 @@ class Comment
 
   public function Set_author_user_id($author_user_id)
   {
-    if (!is_integer($author_user_id) || empty($author_user_id))
+    if (!is_integer($author_user_id ))
     {
       throw new \RuntimeException('the variable author must be an integer and not empty');
     }

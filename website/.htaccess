@@ -1,2 +1,3 @@
 RewriteEngine On
+RewriteCond %{REQUEST_URI} !.(css|gif|ico|jpg|png|js|png|swf|txt|eot|woff2|woff|ttf|svg)$
 RewriteRule ^(.*)$ router.php
