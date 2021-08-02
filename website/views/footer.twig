@@ -25,10 +25,21 @@
                             </li>
                         </ul>
                     </div>
+
+                    {% if isLog == 1 and is_admin == 1 %}
                     <div class="footer-col col-md-4">
-                        <h3>About Freelancer</h3>
-                        <p>Freelance is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                        <h3>Administration du blog</h3>
+                        <form action="/" methode="post">
+                            {% if admin_mode %}
+                            <input type="hidden" name="user_mode" value="1">
+                            <p><input type="submit" value="Passer en mode utilisateur"></p>
+                            {% else %}
+                            <input type="hidden" name="admin_mode" value="1">
+                            <p><input type="submit" value="Passer en mode admin"></p>
+                            {% endif %}
+                        </form>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -3,11 +3,15 @@
 namespace controllers;
 
 use models\UserManager;
+use models\SuperGlobal;
 
 session_start();
 
 class UserController
-{
+{    Public function __construct()
+    {
+        $this->$superGlobal = new SuperGlobal;
+    }
     public function Manage_user_right($change_right = 0,$users_from_post = [],$user_valided = [],$user_is_admin = [])
     {
         $userManager = new Usermanager;
@@ -15,15 +19,23 @@ class UserController
         {
             $userManager->Set_user_right($users_from_post,$user_valided,$user_is_admin);
         }
+
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
+        $users = $userManager->Get_All_Users(); 
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        $users = $userManager->Get_All_Users(); 
-        $is_log = $_SESSION['isLog'];
+
         ?><?= $twig->render('Manage_user_right.twig',[
-                                                    'isLog' => $is_log,
-                                                    'firstname' => $_SESSION['firstname'],
+                                                    'admin_mode' => $admin_mode,
+                                                    'is_admin' => $is_admin,
+                                                    'isLog' => $isLog,
+                                                    'firstname' => $firstname,
                                                     'users' => $users,
                                                     'change_right' => $change_right,
                                                     ]); ?><?php
@@ -33,28 +45,41 @@ class UserController
     {
         $userManager = new Usermanager;
         $result = $userManager->Create_user($firstname, $lastname, $login, $password);
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
 
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        $is_log = $_SESSION['isLog'];
+
         ?><?= $twig->render('userCreation_result.twig',[
-                                                    'isLog' => $is_log,
-                                                    'firstname' => $_SESSION['firstname'],
+                                                    'admin_mode' => $admin_mode,
+                                                    'is_admin' => $is_admin,
+                                                    'isLog' => $isLog,
+                                                    'firstname' => $firstname,
                                                     'result' => $result,
                                                     ]); ?><?php
     }
     public function Get_user_creation_page()
     {
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        $is_log = $_SESSION['isLog'];
+
         ?><?= $twig->render('userCreationPage.twig',[
-                                                    'isLog' => $is_log,
-                                                    'firstname' => $_SESSION['firstname'],
+                                                    'admin_mode' => $admin_mode,
+                                                    'is_admin' => $is_admin,
+                                                    'isLog' => $isLog,
+                                                    'firstname' => $firstname,
                                                     ]); ?><?php
     }
 

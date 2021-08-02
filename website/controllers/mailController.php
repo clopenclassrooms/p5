@@ -2,20 +2,30 @@
 
 namespace controllers;
 
-session_start();
+use models\SuperGlobal;
 
 class MailController
 {
+    Public function __construct()
+    {
+        $this->$superGlobal = new SuperGlobal;
+    }
     public function Display_mail_form()
     {
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        $is_log = $_SESSION['isLog'];
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
+
         ?><?= $twig->render('sendMail_form.twig',[
-                                                    'isLog' => $is_log,
-                                                    'firstname' => $_SESSION['firstname'],
+                                                    'admin_mode' => $admin_mode,
+                                                    'is_admin' => $is_admin,
+                                                    'isLog' => $isLog,
+                                                    'firstname' => $firstname,
                                                     ]); ?><?php
     }
 
@@ -25,7 +35,13 @@ class MailController
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
-        $is_log = $_SESSION['isLog'];
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
+        $lastname = $this->$superGlobal->get_key('SESSION','lastname');
+        $email = $this->$superGlobal->get_key('SESSION','email');
+        $message = $this->$superGlobal->get_key('SESSION','message');
 
         $to      = 'kevin@localhost';
         $subject = 'Site web : message de ' . $firstname . " " . $lastname;
@@ -36,11 +52,13 @@ class MailController
         $result = mail($to, $subject, $message, $headers);
 
         ?><?= $twig->render('sendMail_result.twig',[
-                                                    'isLog' => $is_log,
-                                                    'firstname' => $_SESSION['firstname'],
-                                                    'lastname' => $_SESSION['lastname'],
-                                                    'email' => $_SESSION['email'],
-                                                    'message' => $_SESSION['message'],
+                                                    'admin_mode' => $admin_mode,
+                                                    'is_admin' => $is_admin,
+                                                    'isLog' => $isLog,
+                                                    'firstname' => $firstname,
+                                                    'lastname' => $lastname,
+                                                    'email' => $email,
+                                                    'message' => $message,
                                                     'result' => $result,
                                                     ]); ?><?php
     }

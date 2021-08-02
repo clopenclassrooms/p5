@@ -2,8 +2,6 @@
 
 namespace models;
  
-session_start();
- 
 class User
 {
     private int $user_id;

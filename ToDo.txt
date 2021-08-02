@@ -5,10 +5,6 @@ Vous développerez une partie administration qui devra être accessible uniqueme
 
 Sur la partie administration, vous veillerez à ce que seules les personnes ayant le droit “administrateur” aient l’accès ; les autres utilisateurs pourront uniquement commenter les articles (avec validation avant publication).
 
-***********************
-
-Dans le footer menu, il doit figurer un lien pour accéder à l’administration du blog.
-
 *******************
 
 un lien vers votre CV au format PDF ;
@@ -20,7 +16,15 @@ Attention, votre blog doit être navigable aisément sur un mobile (téléphone 
 ************************
 
 Vous vous assurerez qu’il n’y a pas de failles de sécurité (XSS, CSRF, SQL Injection, session hijacking, upload possible de script PHP…).
+XSS : 
+htmlspecialchars()
+htmlentities()
 
+CSRF:
+Ne pas utiliser de cookies (pas de jeton dans le cookie)
+
+SQL Injection : 
+mysqli_real_escape_string() => ne pas utiliser avec pdo (avec la méthode prepare).
 *************************
 
 Vous devrez créer l’ensemble des issues (tickets) correspondant aux tâches que vous aurez à effectuer pour mener à bien le projet.
@@ -36,3 +40,33 @@ configurer postfix en relay mail.
 ***************
 
 Le login doit être unique
+
+
+
+
+
+
+
+
+
+================
+
+
+https://stackoverflow.com/questions/38423954/how-to-access-superglobals-in-correct-way 
+
+==============
+https://stackoverflow.com/questions/15730037/prevent-output-escaping-in-twig-function-extension 
+
+==============
+require_once :
+composer psr4 
+https://getcomposer.org/doc/04-schema.md#psr-4 
+
+============
+
+session_start(); => qu'une seul fois
+
+
+sonid => principe pour faire un code propre.
+PHP-cs-fixer
+https://codeclimate.com/quality/pricing/ 

@@ -4,22 +4,33 @@ namespace controllers;
 
 use models\PostManager;
 use models\CommentManager;
+use models\SuperGlobal;
 
 class PostController
 {
+    Public function __construct()
+    {
+        $this->$superGlobal = new SuperGlobal;
+    }
     public function delete_posts($posts_id)
     {
         $postManager = new PostManager($posts_id);
         $result = $postManager->Delete_Posts($posts_id);
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
+
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false, //'/tmp',
         ]);
-        $is_log = $_SESSION['isLog'];
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
         ?><?=  $twig->render('delete_posts_result.twig',[
-                                              'isLog' => $is_log,
-                                              'firstname' => $_SESSION['firstname'],
                                               'result' => $result,
+                                              'admin_mode' => $admin_mode,
+                                              'is_admin' => $is_admin,
+                                              'isLog' => $isLog,
+                                              'firstname' => $firstname,
                                               ]); ?><?php
     }
 
@@ -39,15 +50,20 @@ class PostController
         $post_modificationDate = date("Y-m-d H:i:s");
         $result = $postManager->Modify_post($post_title,$post_leadParagraph,$post_content,$post_modificationDate, $post_id);
 
-        $is_log = $_SESSION['isLog'];
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
 
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
         ?><?=  $twig->render('editpost_result.twig',[
-                                                'isLog' => $is_log,
-                                                'firstname' => $_SESSION['firstname'],
+                                                'admin_mode' => $admin_mode,
+                                                'is_admin' => $is_admin,
+                                                'isLog' => $isLog,
+                                                'firstname' => $firstname,
                                                 'result' => $result,
                                                 ]); ?><?php
     }
@@ -55,25 +71,33 @@ class PostController
     {
         $postManager = new PostManager();
         $post = $postManager->Get_Post($post_id);
-        $is_log = $_SESSION['isLog'];
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
 
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
         ?><?=  $twig->render('editpost.twig',[
-                                                'isLog' => $is_log,
-                                                'firstname' => $_SESSION['firstname'],
+                                                'admin_mode' => $admin_mode,
+                                                'is_admin' => $is_admin,
+                                                'isLog' => $isLog,
+                                                'firstname' => $firstname,
                                                 'post' => $post->To_array()
                                                 ]); ?><?php
     }
     public function Add_post($title,$leadParagraph,$content)
     {
-        $author_id_user = $_SESSION['user_id'];
+        $author_id_user = $this->$superGlobal->get_key('SESSION','user_id');
         date_default_timezone_set('UTC');
         $creationDate = date("Y-m-d H:i:s");  
         $modificationDate = date("Y-m-d H:i:s");
-        $is_log = $_SESSION['isLog'];
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
 
         $postManager = new Postmanager;
         $result = $postManager->Add_post($title,$leadParagraph,$content,$author_id_user,$creationDate,$modificationDate);
@@ -83,23 +107,30 @@ class PostController
             'cache' => false //'/tmp',
         ]);
         ?><?= $twig->render('create_new_poste_result.twig',[
-                                                          'isLog' => $is_log,
-                                                          'firstname' => $_SESSION['firstname'],
+                                                            'admin_mode' => $admin_mode,
+                                                            'is_admin' => $is_admin,
+                                                            'isLog' => $isLog,
+                                                            'firstname' => $firstname,
                                                           'result' => $result,
                                                          ]); ?><?php
     }
 
     public function Get_create_new_poste_page()
     {
-        $is_log = $_SESSION['isLog'];
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
 
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false //'/tmp',
         ]);
         ?><?= $twig->render('create_new_poste_page.twig',[
-                                                          'isLog' => $is_log,
-                                                          'firstname' => $_SESSION['firstname'],
+                                                            'admin_mode' => $admin_mode,
+                                                            'is_admin' => $is_admin,
+                                                            'isLog' => $isLog,
+                                                            'firstname' => $firstname,
         ]); ?><?php
     }
 
@@ -119,7 +150,10 @@ class PostController
         $commentManager = new CommentManager();
         $comments = $commentManager->Get_Comments($post_id);
 
-        $is_log = $_SESSION['isLog'];
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
         
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
@@ -130,27 +164,38 @@ class PostController
                                                     'comments' => $comments,
                                                     'add_comment' => $add_comment,
                                                     'add_comment_result' => $add_comment_result,
-                                                    'isLog' => $is_log,
-                                                    'firstname' => $_SESSION['firstname'],
+                                                    'admin_mode' => $admin_mode,
+                                                    'is_admin' => $is_admin,
+                                                    'isLog' => $isLog,
+                                                    'firstname' => $firstname,
                                                 ]); ?><?php
     }
     public function DisplayAllPosts(bool $admin = false)
     {
-        if ($admin && $_SESSION['isLog']){
+        if ($admin && $this->$superGlobal->get_key('SESSION','isLog')){
             $admin = 1;
         }else{
             $admin = 0;
         }
         $postManager = new PostManager();
         $posts = $postManager->Get_Posts();
+        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
+
         $loader = new \Twig\Loader\FilesystemLoader('/app/views');
         $twig = new \Twig\Environment($loader, [
             'cache' => false, //'/tmp',
         ]);
+        
+        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+
         ?><?= $twig->render('DisplayAllPosts.twig',
                             [
-                                'isLog' => $_SESSION['isLog'],
-                                'firstname' => $_SESSION['firstname'],
+                                'admin_mode' => $admin_mode,
+                                'is_admin' => $is_admin,
+                                'isLog' => $isLog,
+                                'firstname' => $firstname,
                                 'posts' => $posts,
                                 'admin' => $admin,
                             ]); 

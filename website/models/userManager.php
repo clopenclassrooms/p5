@@ -85,6 +85,7 @@ class UserManager
             $user->Set_lastname($fetch['lastname']);
             $user->Set_login($fetch['login']);
             $user->Set_password($fetch['password']);
+            $user->Set_is_admin((int)$fetch['is_admin']);
         }catch(Exception $e) {
             return false;
         }
@@ -101,7 +102,7 @@ class UserManager
             $_SESSION['firstname'] = $user->Get_firstname();
             $_SESSION['lastname'] = $user->Get_lastname();
             $_SESSION['login'] = $user->Get_login();
-        
+            $_SESSION['is_admin'] = $user->Get_is_admin();
             return true;
         }
     }

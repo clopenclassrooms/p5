@@ -17,6 +17,7 @@ require_once './controllers/commentController.php';
 require_once './controllers/mailController.php';
 require_once './controllers/homepageController.php';
 require_once './vendor/autoload.php';
+require_once './models/superglobal.php';
 
 
 use models\PostManager;
@@ -31,7 +32,7 @@ use controllers\userController;
 use controllers\CommentController;
 use controllers\MailController;
 use controllers\homepageController;
-
+use models\Superglobal;
 
 
 
@@ -40,21 +41,30 @@ $router->Select_controler();
 
 class Router
 {
+    private $session;
+    private $server;
+
+
+    Public function __construct()
+    {
+        $this->$superGlobal = new SuperGlobal;
+    }
+
     public function Get_redirection_url():array
     {
-        $redirection_url = explode("/",$_SERVER['REDIRECT_URL']);
+        $redirection_url = explode("/",$this->$superGlobal->get_key('SERVER', 'REDIRECT_URL'));
         return $redirection_url;
     }
     public function Get_redirection_variables():array
     {
-        if($_SERVER['REQUEST_METHOD'] == 'GET')
+        if($this->$superGlobal->get_key('SERVER','REQUEST_METHOD') == 'GET')
         {
-            $redirection_variables = $_GET;
+            $redirection_variables = $this->$superGlobal->get('GET');
             return $redirection_variables;
         }
-        if($_SERVER['REQUEST_METHOD'] == 'POST')
+        if($this->$superGlobal->get_key('SERVER','REQUEST_METHOD') == 'POST')
         {
-            $redirection_variables = $_POST;
+            $redirection_variables = $this->$superGlobal->get('POST');
             return $redirection_variables;
         }
     }
@@ -118,12 +128,12 @@ class Router
             case "display_post" : 
                 
                 $post_id = (int) $variables_receved['post_id'];
-                if ($variables_receved['add_comment'] == 1 && $_SESSION['isLog'] == true)
+                if ($variables_receved['add_comment'] == 1 && $this->$superGlobal->get_key('SESSION','isLog') == true)
                 {
                     $add_comment = true;
                     $comment = (string) $variables_receved['comment'];
-                    $author_id_user = $_SESSION['user_id'];
-                }elseif ($variables_receved['add_comment'] == 1 && $_SESSION['isLog'] == false){
+                    $author_id_user = $this->$superGlobal->get_key('SESSION','user_id');
+                }elseif ($variables_receved['add_comment'] == 1 && $this->$superGlobal->get_key('SESSION','isLog') == false){
                     $add_comment = true;
                     $comment = $variables_receved['comment'];;
                     $author_id_user = 0;
@@ -176,12 +186,14 @@ class Router
                 $controler->Logging_user($login,$password);
                 $action_request = "";
             case "" :
-                if ($variables_receved['sign_out'] == 1)
-                {
-                    $_SESSION['isLog'] =     false;
-                }
+                $sign_out = $variables_receved['sign_out'];
+                $isLog = $this->$superGlobal->get_key('SESSION','isLog');
+                $admin_mode = $variables_receved['admin_mode'];
+                $user_mode = $variables_receved['user_mode'];
+                $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
+
                 $controler = new HomepageController;
-                $controler->Display_homepage();
+                $controler->Display_homepage($sign_out,$admin_mode,$user_mode);
                 break;
             default :
             print("Erreur dans l'url");
