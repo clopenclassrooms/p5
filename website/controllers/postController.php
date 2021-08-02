@@ -81,10 +81,6 @@ class PostController
         date_default_timezone_set('UTC');
         $creationDate = date("Y-m-d H:i:s");  
         $modificationDate = date("Y-m-d H:i:s");
-        $isLog = $this->superGlobal->get_key('SESSION','isLog');
-        $is_admin = $this->superGlobal->get_key('SESSION','is_admin');
-        $admin_mode = $this->superGlobal->get_key('SESSION','admin_mode');
-        $firstname = $this->superGlobal->get_key('SESSION','firstname');
 
         $result = $this->postManager->Add_post($title,$leadParagraph,$content,$author_id_user,$creationDate,$modificationDate);
         

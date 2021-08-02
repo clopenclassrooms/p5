@@ -6,8 +6,6 @@ use models\UserManager;
 use models\SuperGlobal;
 use views\DisplayHTML;
 
-session_start();
-
 class UserController
 {   
     private $superGlobal;

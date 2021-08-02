@@ -20,10 +20,10 @@ class UserManager
         $prepare = $this->PHPDataObject->prepare($sql);
         foreach($users_need_modify as $user_need_modify)
         {
-            if (in_array($user_need_modify, $users_valided))
-            {$valided = 1;}else{$valided = 0;}
-            if (in_array($user_need_modify, $users_is_admin))
-            {$is_admin = 1;}else{$is_admin = 0;}
+            $valided = 0;
+            if (in_array($user_need_modify, $users_valided)){$valided = 1;}
+            $is_admin = 0;
+            if (in_array($user_need_modify, $users_is_admin)){$is_admin = 1;}
             $prepare->execute([$valided,$is_admin,$user_need_modify]);
         }
     }

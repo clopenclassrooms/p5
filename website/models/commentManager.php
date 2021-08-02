@@ -52,7 +52,7 @@ class CommentManager
         $comments = [];
         try{
             $prepare = $this->PHPDataObject->prepare($sql);
-            $execute = $prepare->execute();
+            $prepare->execute();
             while ($fetch = $prepare->fetch()) {
                 $comment = new Comment;
                 $comment->Set_id((int)$fetch['comment_id']);

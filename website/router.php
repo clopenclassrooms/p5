@@ -77,7 +77,7 @@ class Router
         {
             case "user_management" : 
                 $controler = new UserController;
-                if ($change_right == "1")
+                if ($variables_receved['change_right'] == "1")
                 {
                     $users_from_post = $variables_receved['users_from_post'];
                     $user_valided = $variables_receved['user_valided'];
