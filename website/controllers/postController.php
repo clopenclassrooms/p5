@@ -48,8 +48,8 @@ class PostController
     }
     public function Modify_post($post_id,$post_title,$post_leadParagraph,$post_content)
     {
-        $post_modificationDate = date("Y-m-d H:i:s");
-        $result = $this->postManager->Modify_post($post_title,$post_leadParagraph,$post_content,$post_modificationDate, $post_id);
+        $post_modifyDate = date("Y-m-d H:i:s");
+        $result = $this->postManager->Modify_post($post_title,$post_leadParagraph,$post_content,$post_modifyDate, $post_id);
         
         $values_send_to_twig = [
             'result' => $result,
@@ -138,10 +138,9 @@ class PostController
     }
     public function DisplayAllPosts(bool $admin = false)
     {
+        $admin = 0;
         if ($admin && $this->superGlobal->get_key('SESSION','isLog')){
             $admin = 1;
-        }else{
-            $admin = 0;
         }
         $posts = $this->postManager->Get_Posts();
 

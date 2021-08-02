@@ -43,14 +43,14 @@ class PostManager
         
     }
 
-    public function Modify_post($post_title,$post_leadParagraph,$post_content,$post_modificationDate, $post_id)
+    public function Modify_post($post_title,$post_leadParagraph,$post_content,$post_modifyDate, $post_id)
     {
         $sql="UPDATE post SET `title` = ? , `leadParagraph` = ?, `content` = ?,`modificationDate` = ? WHERE `id` =  ?";
         try{
             
             $this->PHPDataObject->beginTransaction();
             $prepare = $this->PHPDataObject->prepare($sql);
-            $execute = $prepare->execute([$post_title,$post_leadParagraph,$post_content,$post_modificationDate, $post_id]);
+            $execute = $prepare->execute([$post_title,$post_leadParagraph,$post_content,$post_modifyDate, $post_id]);
             
             $this->PHPDataObject->commit();
             

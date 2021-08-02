@@ -29,7 +29,7 @@ class MailController
 
     public function Send_mail($firstname,$lastname,$email,$message)
     {
-        $to      = 'kevin@localhost';
+        $destination_email      = 'kevin@localhost';
         $subject = 'Site web : message de ' . $firstname . " " . $lastname;
         $headers = 'From: siteweb@localhost' . "\r\n" .
         'Reply-To: ' . $email . "\r\n" .
@@ -40,7 +40,7 @@ class MailController
             'is_admin' => $this->superGlobal->get_key('SESSION','is_admin'),
             'isLog' => $this->superGlobal->get_key('SESSION','isLog'),
             'firstname' => $this->superGlobal->get_key('SESSION','firstname'),
-            'result' => mail($to, $subject, $message, $headers),
+            'result' => mail($destination_email, $subject, $message, $headers),
             ];
 
         $this->displayHTML->displayHTML('sendMail_result.twig',$values_send_to_twig);

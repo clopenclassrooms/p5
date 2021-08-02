@@ -91,11 +91,9 @@ class CommentManager
                         ?
                     )";
             $creationDate = date("Y-m-d H:i:s");
-            
+            $validated = 0;
             if ($author_id_user != 0) {
                 $validated = 1;
-            } else {
-                $validated = 0;
             }
 
             try {
