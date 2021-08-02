@@ -97,12 +97,12 @@ class UserManager
         if (!($user->Get_password()) == $password){
             return false;
         }else{
-            $_SESSION['isLog'] = true;
-            $_SESSION['user_id'] = $user->Get_id();
-            $_SESSION['firstname'] = $user->Get_firstname();
-            $_SESSION['lastname'] = $user->Get_lastname();
-            $_SESSION['login'] = $user->Get_login();
-            $_SESSION['is_admin'] = $user->Get_is_admin();
+            $this->$superGlobal->set_key('SESSION','isLog',true);
+            $this->$superGlobal->set_key('SESSION','user_id',$user->Get_id());
+            $this->$superGlobal->set_key('SESSION','firstname',$user->Get_firstname());
+            $this->$superGlobal->set_key('SESSION','lastname',$user->Get_lastname());
+            $this->$superGlobal->set_key('SESSION','login',$user->Get_id());
+            $this->$superGlobal->set_key('SESSION','is_admin',$user->Get_is_admin());
             return true;
         }
     }
