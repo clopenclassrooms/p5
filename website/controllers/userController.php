@@ -4,6 +4,7 @@ namespace controllers;
 
 use models\UserManager;
 use models\SuperGlobal;
+use views\DisplayHTML;
 
 session_start();
 
@@ -20,67 +21,45 @@ class UserController
             $userManager->Set_user_right($users_from_post,$user_valided,$user_is_admin);
         }
 
-        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
         $users = $userManager->Get_All_Users(); 
-        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
-        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
-        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
 
-        $loader = new \Twig\Loader\FilesystemLoader('/app/views');
-        $twig = new \Twig\Environment($loader, [
-            'cache' => false //'/tmp',
-        ]);
+        $values_send_to_twig = [
+            'users' => $users,
+            'change_right' => $change_right,
+            'admin_mode' => SuperGlobal::get_key('SESSION','admin_mode'),
+            'is_admin' => SuperGlobal::get_key('SESSION','is_admin'),
+            'isLog' => SuperGlobal::get_key('SESSION','isLog'),
+            'firstname' => SuperGlobal::get_key('SESSION','firstname'),
+            ];
 
-        ?><?= $twig->render('Manage_user_right.twig',[
-                                                    'admin_mode' => $admin_mode,
-                                                    'is_admin' => $is_admin,
-                                                    'isLog' => $isLog,
-                                                    'firstname' => $firstname,
-                                                    'users' => $users,
-                                                    'change_right' => $change_right,
-                                                    ]); ?><?php
+        DisplayHTML::displayHTML('Manage_user_right.twig',$values_send_to_twig);
     }
 
     public function Create_user($firstname, $lastname, $login, $password )
     {
         $userManager = new Usermanager;
         $result = $userManager->Create_user($firstname, $lastname, $login, $password);
-        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
-        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
-        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
-        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
 
-        $loader = new \Twig\Loader\FilesystemLoader('/app/views');
-        $twig = new \Twig\Environment($loader, [
-            'cache' => false //'/tmp',
-        ]);
+        $values_send_to_twig = [
+            'result' => $result,
+            'admin_mode' => SuperGlobal::get_key('SESSION','admin_mode'),
+            'is_admin' => SuperGlobal::get_key('SESSION','is_admin'),
+            'isLog' => SuperGlobal::get_key('SESSION','isLog'),
+            'firstname' => SuperGlobal::get_key('SESSION','firstname'),
+            ];
 
-        ?><?= $twig->render('userCreation_result.twig',[
-                                                    'admin_mode' => $admin_mode,
-                                                    'is_admin' => $is_admin,
-                                                    'isLog' => $isLog,
-                                                    'firstname' => $firstname,
-                                                    'result' => $result,
-                                                    ]); ?><?php
+        DisplayHTML::displayHTML('userCreation_result.twig',$values_send_to_twig);
     }
     public function Get_user_creation_page()
     {
-        $firstname = $this->$superGlobal->get_key('SESSION','firstname');
-        $isLog = $this->$superGlobal->get_key('SESSION','isLog');
-        $is_admin = $this->$superGlobal->get_key('SESSION','is_admin');
-        $admin_mode = $this->$superGlobal->get_key('SESSION','admin_mode');
+        $values_send_to_twig = [
+            'admin_mode' => SuperGlobal::get_key('SESSION','admin_mode'),
+            'is_admin' => SuperGlobal::get_key('SESSION','is_admin'),
+            'isLog' => SuperGlobal::get_key('SESSION','isLog'),
+            'firstname' => SuperGlobal::get_key('SESSION','firstname'),
+            ];
 
-        $loader = new \Twig\Loader\FilesystemLoader('/app/views');
-        $twig = new \Twig\Environment($loader, [
-            'cache' => false //'/tmp',
-        ]);
-
-        ?><?= $twig->render('userCreationPage.twig',[
-                                                    'admin_mode' => $admin_mode,
-                                                    'is_admin' => $is_admin,
-                                                    'isLog' => $isLog,
-                                                    'firstname' => $firstname,
-                                                    ]); ?><?php
+        DisplayHTML::displayHTML('userCreationPage.twig',$values_send_to_twig);
     }
 
     public function Logging_user($login,$password)

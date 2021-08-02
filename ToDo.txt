@@ -36,6 +36,7 @@ Votre projet devra être suivi via SymfonyInsight, ou Codacy pour la qualité du
 *************************
 
 configurer postfix en relay mail.
++ configurer postfix pour envoyer les mails dans une boite local.
 
 ***************
 

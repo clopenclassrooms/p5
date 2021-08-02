@@ -18,6 +18,7 @@ require_once './controllers/mailController.php';
 require_once './controllers/homepageController.php';
 require_once './vendor/autoload.php';
 require_once './models/superglobal.php';
+require_once './views/php/display_html.php';
 
 
 use models\PostManager;
@@ -33,7 +34,7 @@ use controllers\CommentController;
 use controllers\MailController;
 use controllers\homepageController;
 use models\Superglobal;
-
+use views\DisplayHTML;
 
 
 $router = new router();
