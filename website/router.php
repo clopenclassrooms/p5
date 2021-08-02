@@ -16,6 +16,7 @@ require_once './controllers/userController.php';
 require_once './controllers/commentController.php';
 require_once './controllers/mailController.php';
 require_once './controllers/homepageController.php';
+require_once './controllers/Error404Controller.php';
 require_once './vendor/autoload.php';
 require_once './models/superglobal.php';
 require_once './views/php/display_html.php';
@@ -33,6 +34,7 @@ use controllers\userController;
 use controllers\CommentController;
 use controllers\MailController;
 use controllers\homepageController;
+use controllers\Error404Controller;
 use models\Superglobal;
 use views\DisplayHTML;
 
@@ -197,7 +199,8 @@ class Router
                 $controler->Display_homepage($sign_out,$admin_mode,$user_mode);
                 break;
             default :
-            print("Erreur dans l'url");
+                $controler = new Error404Controller;
+                $controler->Display_404();
         }
     }
 }
