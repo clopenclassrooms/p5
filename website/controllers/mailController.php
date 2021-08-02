@@ -7,16 +7,24 @@ use views\DisplayHTML;
 
 class MailController
 {
+    private $superGlobal;
+    private $displayHTML;
+
+    public function __construct()
+    {
+        $this->superGlobal = new SuperGlobal;
+        $this->displayHTML = new DisplayHTML;
+    }
     public function Display_mail_form()
     {
         $values_send_to_twig = [
-            'admin_mode' => SuperGlobal::get_key('SESSION','admin_mode'),
-            'is_admin' => SuperGlobal::get_key('SESSION','is_admin'),
-            'isLog' => SuperGlobal::get_key('SESSION','isLog'),
-            'firstname' => SuperGlobal::get_key('SESSION','firstname'),
+            'admin_mode' => $this->superGlobal->get_key('SESSION','admin_mode'),
+            'is_admin' => $this->superGlobal->get_key('SESSION','is_admin'),
+            'isLog' => $this->superGlobal->get_key('SESSION','isLog'),
+            'firstname' => $this->superGlobal->get_key('SESSION','firstname'),
             ];
 
-        DisplayHTML::displayHTML('sendMail_form.twig',$values_send_to_twig);
+        $this->displayHTML->displayHTML('sendMail_form.twig',$values_send_to_twig);
     }
 
     public function Send_mail($firstname,$lastname,$email,$message)
@@ -28,13 +36,13 @@ class MailController
         'X-Mailer: PHP/' . phpversion();
 
         $values_send_to_twig = [
-            'admin_mode' => SuperGlobal::get_key('SESSION','admin_mode'),
-            'is_admin' => SuperGlobal::get_key('SESSION','is_admin'),
-            'isLog' => SuperGlobal::get_key('SESSION','isLog'),
-            'firstname' => SuperGlobal::get_key('SESSION','firstname'),
+            'admin_mode' => $this->superGlobal->get_key('SESSION','admin_mode'),
+            'is_admin' => $this->superGlobal->get_key('SESSION','is_admin'),
+            'isLog' => $this->superGlobal->get_key('SESSION','isLog'),
+            'firstname' => $this->superGlobal->get_key('SESSION','firstname'),
             'result' => mail($to, $subject, $message, $headers),
             ];
 
-        DisplayHTML::displayHTML('sendMail_result.twig',$values_send_to_twig);
+        $this->displayHTML->displayHTML('sendMail_result.twig',$values_send_to_twig);
     }
 }

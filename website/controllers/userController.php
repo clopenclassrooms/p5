@@ -9,9 +9,14 @@ use views\DisplayHTML;
 session_start();
 
 class UserController
-{    Public function __construct()
+{   
+    private $superGlobal;
+    private $displayHTML;
+
+    public function __construct()
     {
-        $this->$superGlobal = new SuperGlobal;
+        $this->superGlobal = new SuperGlobal;
+        $this->displayHTML = new DisplayHTML;
     }
     public function Manage_user_right($change_right = 0,$users_from_post = [],$user_valided = [],$user_is_admin = [])
     {
@@ -26,13 +31,13 @@ class UserController
         $values_send_to_twig = [
             'users' => $users,
             'change_right' => $change_right,
-            'admin_mode' => SuperGlobal::get_key('SESSION','admin_mode'),
-            'is_admin' => SuperGlobal::get_key('SESSION','is_admin'),
-            'isLog' => SuperGlobal::get_key('SESSION','isLog'),
-            'firstname' => SuperGlobal::get_key('SESSION','firstname'),
+            'admin_mode' => $this->superGlobal->get_key('SESSION','admin_mode'),
+            'is_admin' => $this->superGlobal->get_key('SESSION','is_admin'),
+            'isLog' => $this->superGlobal->get_key('SESSION','isLog'),
+            'firstname' => $this->superGlobal->get_key('SESSION','firstname'),
             ];
 
-        DisplayHTML::displayHTML('Manage_user_right.twig',$values_send_to_twig);
+        $this->displayHTML->displayHTML('Manage_user_right.twig',$values_send_to_twig);
     }
 
     public function Create_user($firstname, $lastname, $login, $password )
@@ -42,24 +47,24 @@ class UserController
 
         $values_send_to_twig = [
             'result' => $result,
-            'admin_mode' => SuperGlobal::get_key('SESSION','admin_mode'),
-            'is_admin' => SuperGlobal::get_key('SESSION','is_admin'),
-            'isLog' => SuperGlobal::get_key('SESSION','isLog'),
-            'firstname' => SuperGlobal::get_key('SESSION','firstname'),
+            'admin_mode' => $this->superGlobal->get_key('SESSION','admin_mode'),
+            'is_admin' => $this->superGlobal->get_key('SESSION','is_admin'),
+            'isLog' => $this->superGlobal->get_key('SESSION','isLog'),
+            'firstname' => $this->superGlobal->get_key('SESSION','firstname'),
             ];
 
-        DisplayHTML::displayHTML('userCreation_result.twig',$values_send_to_twig);
+        $this->displayHTML->displayHTML('userCreation_result.twig',$values_send_to_twig);
     }
     public function Get_user_creation_page()
     {
         $values_send_to_twig = [
-            'admin_mode' => SuperGlobal::get_key('SESSION','admin_mode'),
-            'is_admin' => SuperGlobal::get_key('SESSION','is_admin'),
-            'isLog' => SuperGlobal::get_key('SESSION','isLog'),
-            'firstname' => SuperGlobal::get_key('SESSION','firstname'),
+            'admin_mode' => $this->superGlobal->get_key('SESSION','admin_mode'),
+            'is_admin' => $this->superGlobal->get_key('SESSION','is_admin'),
+            'isLog' => $this->superGlobal->get_key('SESSION','isLog'),
+            'firstname' => $this->superGlobal->get_key('SESSION','firstname'),
             ];
 
-        DisplayHTML::displayHTML('userCreationPage.twig',$values_send_to_twig);
+        $this->displayHTML->displayHTML('userCreationPage.twig',$values_send_to_twig);
     }
 
     public function Logging_user($login,$password)

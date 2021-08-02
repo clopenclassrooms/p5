@@ -9,8 +9,7 @@ class PostManager
     private $PHPDataObject;
 
     public function __construct(){
-        $database = new Database();
-        $this->PHPDataObject = $database;
+        $this->PHPDataObject = new Database();
     }
 
     public function Delete_Posts($posts_id)

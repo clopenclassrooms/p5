@@ -1,7 +1,6 @@
 @font-face {
     font-family: FontAwesome;
-    src: url("/views/fonts/fontawesome-webfont.eot") format("eot"), /* For IE8-11 */
-         url("/views/fonts/fontawesome-webfont.woff")format("woff"); /* For all other browser */
+    src: url("/views/fonts/fontawesome-webfont.eot") format("eot"),url("/views/fonts/fontawesome-webfont.woff")format("woff");
     font-display: auto;
   }
   
