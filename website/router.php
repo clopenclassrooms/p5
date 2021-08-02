@@ -3,23 +3,7 @@ namespace router;
 
 session_start();
 
-
-require_once './models/postManager.php';
-require_once './models/userManager.php';
-require_once './models/commentManager.php';
-require_once './models/post.php';
-require_once './models/user.php';
-require_once './models/comment.php';
-require_once './models/database.php';
-require_once './controllers/postController.php';
-require_once './controllers/userController.php';
-require_once './controllers/commentController.php';
-require_once './controllers/mailController.php';
-require_once './controllers/homepageController.php';
-require_once './controllers/Error404Controller.php';
 require_once './vendor/autoload.php';
-require_once './models/superglobal.php';
-require_once './views/php/display_html.php';
 
 
 use models\PostManager;

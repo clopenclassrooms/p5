@@ -3,5 +3,25 @@
     "require": {
         "twig/twig": "^3.0",
         "twbs/bootstrap": "^5.0.2"
+    },
+    "autoload": {
+        "files": [
+            "./models/postManager.php",
+            "./models/userManager.php",
+            "./models/commentManager.php",
+            "./models/post.php",
+            "./models/user.php",
+            "./models/comment.php",
+            "./models/database.php",
+            "./controllers/postController.php",
+            "./controllers/userController.php",
+            "./controllers/commentController.php",
+            "./controllers/mailController.php",
+            "./controllers/homepageController.php",
+            "./controllers/Error404Controller.php",
+            "./vendor/autoload.php",
+            "./models/superglobal.php",
+            "./views/php/display_html.php"
+        ]
     }
 }

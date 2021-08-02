@@ -9,6 +9,22 @@ class ComposerStaticInit09889beb17dd0a82b917fe90b5bc702c
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        'e3a6adf17d35f17356270c188c98e7f5' => __DIR__ . '/../..' . '/models/postManager.php',
+        'f10c19b11dcd187129178ed915505711' => __DIR__ . '/../..' . '/models/userManager.php',
+        'd976138649fd62d0a10d9b3eef2f2c38' => __DIR__ . '/../..' . '/models/commentManager.php',
+        '3ff5222bde2c063b87e3f396a0b67d4d' => __DIR__ . '/../..' . '/models/post.php',
+        'f4721415dfe872a9e3cb9a7ef7249a95' => __DIR__ . '/../..' . '/models/user.php',
+        '0018e743c967e376f093e25e8b4514b9' => __DIR__ . '/../..' . '/models/comment.php',
+        'eab3084a2d4d5f5b78d5f0e5f33da4f7' => __DIR__ . '/../..' . '/models/database.php',
+        '4e7585d683cb1aa611e441658319fd66' => __DIR__ . '/../..' . '/controllers/postController.php',
+        'c0b44d549bfabfa579b312d063c8c8f4' => __DIR__ . '/../..' . '/controllers/userController.php',
+        'bccdb64618d12fbb84e69729bbf80eae' => __DIR__ . '/../..' . '/controllers/commentController.php',
+        '0db018065e1fb6489af74daaae5d061a' => __DIR__ . '/../..' . '/controllers/mailController.php',
+        '77727bbfc627b99268aa817803fb1308' => __DIR__ . '/../..' . '/controllers/homepageController.php',
+        '76d45770a89e08dc0af443c0e1da37f0' => __DIR__ . '/../..' . '/controllers/Error404Controller.php',
+        '9fdfde9b1abc95992f137c25b58d48d8' => __DIR__ . '/..' . '/autoload.php',
+        '618c2c7d09e7e408532872950388fb15' => __DIR__ . '/../..' . '/models/superglobal.php',
+        'f2ba95b7f4dc033f37e51687366ef60b' => __DIR__ . '/../..' . '/views/php/display_html.php',
     );
 
     public static $prefixLengthsPsr4 = array (
