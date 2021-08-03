@@ -44,14 +44,18 @@ class Router
     {
         if($this->superGlobal->get_key('SERVER','REQUEST_METHOD') == 'GET')
         {
-            $redirection_var = $this->superGlobal->get('GET');
-            return $redirection_var;
+            $redirection_vars = $this->superGlobal->get('GET');
         }
         if($this->superGlobal->get_key('SERVER','REQUEST_METHOD') == 'POST')
         {
-            $redirection_var = $this->superGlobal->get('POST');
-            return $redirection_var;
+            $redirection_vars = $this->superGlobal->get('POST');
         }
+        $secure_vars = [];
+        foreach($redirection_vars as $key => $value)
+        {
+            $secure_vars[$key] = $value;
+        }
+        return $secure_vars;
     }
     public function Select_controler()
     {
@@ -114,15 +118,12 @@ class Router
             case "display_post" : 
                 
                 $post_id = (int) $variables_receved['post_id'];
+                $add_comment = false;
                 if ($variables_receved['add_comment'] == 1 && $this->superGlobal->get_key('SESSION','isLog') == true)
                 {
                     $add_comment = true;
                     $comment = (string) $variables_receved['comment'];
                     $author_id_user = $this->superGlobal->get_key('SESSION','user_id');
-                }elseif ($variables_receved['add_comment'] == 1 && $this->superGlobal->get_key('SESSION','isLog') == false){
-                    $add_comment = true;
-                    $comment = $variables_receved['comment'];;
-                    $author_id_user = 0;
                 }
                 $controler = new PostController;
                 $controler->DisplayPost(

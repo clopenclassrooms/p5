@@ -88,6 +88,7 @@ class UserManager
             $user->Set_login($fetch['login']);
             $user->Set_password($fetch['password']);
             $user->Set_is_admin((int)$fetch['is_admin']);
+            $user->Set_valided((int)$fetch['valided']);
         }catch(Exception $e) {
             return false;
         }
@@ -96,16 +97,16 @@ class UserManager
     public function Logging_user($login,$password)
     {
         $user = $this->Get_User($login);
-        if (!($user->Get_password()) == $password){
-            return false;
-        }else{
+        if ($user->Get_password() == $password and $user->Get_valided()){
             $this->superGlobal->set_key('SESSION','isLog',true);
             $this->superGlobal->set_key('SESSION','user_id',$user->Get_id());
             $this->superGlobal->set_key('SESSION','firstname',$user->Get_firstname());
             $this->superGlobal->set_key('SESSION','lastname',$user->Get_lastname());
             $this->superGlobal->set_key('SESSION','login',$user->Get_id());
             $this->superGlobal->set_key('SESSION','is_admin',$user->Get_is_admin());
-            return true;
+            return true;  
+        }else{
+            return false;
         }
     }
 

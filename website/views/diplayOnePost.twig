@@ -19,23 +19,28 @@
                     </div>
                 <div>
             <div>
+            {% if isLog %}
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h3>commentaires<h3>
+                        <h3>commentaires</h3>
                     </div>
-                    <div class="col-lg-12 text-center">
                     {% if add_comment == true %}
+                    <div class="col-lg-12 text-center">
+                    
                         {% if add_comment_result == true %}
-                            {% if isLog == 0 %}
+                            {% if is_admin == 0 %}
                             <p>Votre commentaire a été rajouté. Il est en attente de validation par l'administrateur du site</p>
-                            {% endif %}
                             {% else %}
+                            <p>Votre commentaire a été rajouté.</p>
+                            {% endif %}
+                        {% else %}
                             <p>Erreur, votre commentaire n'a pas été rajouté</p>
                         {% endif %}
-                    {% endif %}
+                    
                     </div>
-                    <div class="row">
+                    {% endif %}
+                    <div class="col-lg-12 text-center">
                         <div class="col-lg-12 text-center">
                             <form methode="post" action="/display_post/" name="sentMessage" id="contactForm" novalidate="">
                                 
@@ -59,6 +64,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 text-center">

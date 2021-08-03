@@ -71,7 +71,7 @@ class CommentManager
         return $comments;
     }
 
-    public function add_comment($comment, $author_id_user, $post_id)
+    public function add_comment($comment, $author_id_user, $post_id,$is_admin)
     {
         if ($comment != "")
         {
@@ -92,10 +92,9 @@ class CommentManager
                     )";
             $creationDate = date("Y-m-d H:i:s");
             $validated = 0;
-            if ($author_id_user != 0) {
+            if ($is_admin == 1) {
                 $validated = 1;
             }
-
             try {
                 $this->PHPDataObject->beginTransaction();
                 $prepare = $this->PHPDataObject->prepare($sql);

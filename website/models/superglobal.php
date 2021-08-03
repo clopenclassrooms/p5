@@ -61,4 +61,14 @@ class SuperGlobal{
         }
         
     }
+
+    public static function destroy($superGlobal){
+        switch ($superGlobal)
+        {
+            case "SESSION" :
+                unset($_SESSION);
+            break;
+        }
+        
+    }
 }
