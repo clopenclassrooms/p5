@@ -1,0 +1,39 @@
+<html>
+{{ block("head", "head.twig") }}
+    <body>
+    {{ block("Navigation", "navigation.twig") }}
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>nouveau post</h2>
+                        <hr class="star-primary">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <form action="/create_new_post/" method="post">
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <input class="border form-control w-50" name="title" rows="1" placeholder="Titre du post"></input>
+                                </div>
+                            </div>  
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <input class="border form-control w-50" name="leadParagraph" rows="1" placeholder="Résumé du post"></input>
+                                </div>
+                            </div>  
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <textarea class="border form-control w-50" name="content" rows="5" placeholder="Texte du post"></textarea>
+                                </div>
+                            </div>  
+                            <p><input type="submit" value="Poster"></p>
+                        </form>
+                    </div>
+                <div>
+            <div>
+        </section>
+    </body>
+        {{ block("Footer", "footer.twig") }}
+</html>

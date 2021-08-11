@@ -1,0 +1,40 @@
+<html>
+{{ block("head", "head.twig") }}
+    <body>
+    {{ block("Navigation", "navigation.twig") }}
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>nouveau post</h2>
+                        <hr class="star-primary">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <form action="/modify_post/" method="post">
+                            <input type="hidden" name="post_id" value="{{post.id}}">
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <input class="border form-control w-50" rows="1" name="post_title" value="{{post.title}}"></input>
+                                </div>
+                            </div>  
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <input class="border form-control w-50" rows="1" name="post_leadParagraph" value="{{post.leadParagraph}}"></input>
+                                </div>
+                            </div>  
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <textarea class="border form-control w-50" rows="5" name="post_content">{{post.content}}</textarea>
+                                </div>
+                            </div>  
+                            <p><input type="submit" value="Modifier"></p>
+                        </form>
+                    </div>
+                <div>
+            <div>
+        </section>
+    </body>
+        {{ block("Footer", "footer.twig") }}
+</html>

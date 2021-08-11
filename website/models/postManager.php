@@ -60,9 +60,9 @@ class PostManager
         }
         if ($execute){
             return true;
-        }else{
-            return false;
         }
+        return false;
+        
         
     }
     public function Add_Post($title,$leadParagraph,$content,$author_id_user,$creationDate,$modificationDate):bool

@@ -8,20 +8,21 @@
   box-shadow: none !important;
 }
 
-.login_container{
-  width: 150px important !important;
+.login-container{
+  width: 150px;
 }
 
-.login_container input[type="text"], .login_container input[type="password"]{
- width: 100px !important; 
+.login-container input[type="text"],
+.login-container input[type="password"]{
+  width: 100px;
 }
 
-.OK_buttom{
-  margin-left:10px !important;
+.OK-buttom{
+  margin-left: 10px;
 }
 
 @media (max-width:992px){
   #navbarSupportedContent1{
-    order:3;
+    order: 3;
   }
 }

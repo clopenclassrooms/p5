@@ -1,6 +1,0 @@
-<form action="/delete_post/" method="post">
-{% for post in posts %}
-<p><input type="checkbox" name="posts_id[]" value="{{post.id}}"> <label> {{ post.title }}</label></p>
-{% endfor %}
-<button type="submit">Supprimer les posts</button>
-</form>

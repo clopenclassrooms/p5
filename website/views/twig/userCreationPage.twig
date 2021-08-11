@@ -1,0 +1,44 @@
+<html>
+{{ block("head", "head.twig") }}
+    <body>
+    {{ block("Navigation", "navigation.twig") }}
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>nouvel utilisateur</h2>
+                        <hr class="star-primary">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <form action="/create_user/" method="post">
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <input class="border form-control w-50" name="firstname" rows="1" placeholder="Prénom"></input>
+                                </div>
+                            </div>  
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <input class="border form-control w-50" name="lastname" rows="1" placeholder="Nom"></input>
+                                </div>
+                            </div>  
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <input class="border form-control w-50" name="login" rows="1" placeholder="Login"></input>
+                                </div>
+                            </div>  
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <input class="border form-control w-50" type="password" name="password" rows="1" placeholder="Mot de passe"></input>
+                                </div>
+                            </div> 
+                            <p><input type="submit" value="Créer"></p>
+                        </form>
+                    </div>
+                <div>
+            <div>
+        </section>
+    </body>
+    {{ block("Footer", "footer.twig") }}
+</html>

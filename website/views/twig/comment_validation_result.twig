@@ -1,0 +1,31 @@
+<html>
+{{ block("head", "head.twig") }}
+    <body>
+    {{ block("Navigation", "navigation.twig") }}
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2>
+                        {% if check_validation %}
+                            <span>Commentaire(s) validé(s)<span>
+                        {% else %}
+                            <span>Erreur lors de la validation des commentaires</span>
+                        {% endif %}
+                        </h2>
+                    </div>
+                </div>
+            <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <div>
+                            <a href="/">Retour à l'accueil</a>
+                        </div>  
+                    </div>
+                <div>
+            <div>
+        </section>
+    </body>
+        {{ block("Footer", "footer.twig") }}
+</html>

@@ -105,9 +105,8 @@ class UserManager
             $this->superGlobal->set_key('SESSION','login',$user->Get_id());
             $this->superGlobal->set_key('SESSION','is_admin',$user->Get_is_admin());
             return true;  
-        }else{
-            return false;
         }
+        return false;
     }
 
 }
