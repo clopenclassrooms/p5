@@ -1,7 +1,7 @@
 <?php 
 
 
-namespace models;
+namespace Models;
 
 class SuperGlobal{
     public static function get($superGlobal){

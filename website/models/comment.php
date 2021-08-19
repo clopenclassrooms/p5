@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace models;
+namespace Models;
 
 class Comment
 {
@@ -9,13 +9,6 @@ class Comment
   protected string $comment,$author_login;
   protected bool $validated;
   protected $creationDate;
-
-
-  //Contructor
-  Public function __construct()
-  {
-
-  }
 
   public function To_array():array
   {
@@ -30,7 +23,6 @@ class Comment
       return $array;
   }
  
-
   // GETTERS //
 
   public function Get_id()
@@ -67,7 +59,6 @@ class Comment
   {
     return $this->postID;
   }
-
 
   public function Set_id($comment_id)
   {

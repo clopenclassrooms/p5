@@ -1,10 +1,10 @@
 <?php
 
-namespace controllers;
+namespace Controllers;
 
-use models\CommentManager;
-use models\SuperGlobal;
-use views\DisplayHTML;
+use Models\CommentManager;
+use Models\SuperGlobal;
+use Views\DisplayHTML;
 
 class CommentController
 {

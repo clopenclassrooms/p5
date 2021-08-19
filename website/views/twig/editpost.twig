@@ -29,6 +29,22 @@
                                     <textarea class="border form-control w-50" rows="5" name="post_content">{{post.content}}</textarea>
                                 </div>
                             </div>  
+                            <div class="row control-group mb-3">
+                                <div class="form-group col-xs-12 d-flex justify-content-center">
+                                    <div class="w-50 d-flex justify-content-start">
+                                    Auteur :&nbsp;
+                                        <select name="author_id">
+                                            {% for user in users %}
+                                                <option value="{{user.user_id}}" 
+                                                {% if user.user_id == post.author_id %}
+                                                selected
+                                                {% endif %}
+                                                >{{user.login}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> 
                             <p><input type="submit" value="Modifier"></p>
                         </form>
                     </div>

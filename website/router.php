@@ -1,5 +1,5 @@
 <?php
-namespace router;
+namespace Router;
 
 session_start();
 
@@ -34,7 +34,6 @@ class Router
     {
         $this->superGlobal = new SuperGlobal;
     }
-
     public function Get_redirection_url():array
     {
         $redirection_url = explode("/",$this->superGlobal->get_key('SERVER', 'REDIRECT_URL'));
@@ -53,7 +52,7 @@ class Router
         $secure_vars = [];
         foreach($redirection_vars as $key => $value)
         {
-            $secure_vars[$key] = $value;
+            $secure_vars[$key] = htmlspecialchars($value);
         }
         return $secure_vars;
     }
@@ -155,7 +154,8 @@ class Router
                     $variables_receved['post_id'],
                     $variables_receved['post_title'],
                     $variables_receved['post_leadParagraph'],
-                    $variables_receved['post_content']
+                    $variables_receved['post_content'],
+                    $variables_receved['author_id']
                 );
                 break;
             case "user_create_page" : 

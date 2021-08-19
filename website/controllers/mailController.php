@@ -1,9 +1,9 @@
 <?php
 
-namespace controllers;
+namespace Controllers;
 
-use models\SuperGlobal;
-use views\DisplayHTML;
+use Models\SuperGlobal;
+use Views\DisplayHTML;
 
 class MailController
 {

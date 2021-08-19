@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace models;
+namespace Models;
 
 class PostManager
 {
@@ -43,14 +43,15 @@ class PostManager
         
     }
 
-    public function Modify_post($post_title,$post_leadParagraph,$post_content,$post_modifyDate, $post_id)
+    public function Modify_post($post_id,$post_title,$post_leadParagraph,$post_content,$author_id)
     {
-        $sql="UPDATE post SET `title` = ? , `leadParagraph` = ?, `content` = ?,`modificationDate` = ? WHERE `id` =  ?";
+        $sql="UPDATE post SET `author_id_user` = ? , `title` = ? , `leadParagraph` = ?, `content` = ?,`modificationDate` = ? WHERE `id` =  ?";
         try{
-            
+            $post_modifyDate = date("Y-m-d H:i:s");
             $this->PHPDataObject->beginTransaction();
             $prepare = $this->PHPDataObject->prepare($sql);
-            $execute = $prepare->execute([$post_title,$post_leadParagraph,$post_content,$post_modifyDate, $post_id]);
+            $post_modifyDate = date("Y-m-d H:i:s"); 
+            $execute = $prepare->execute([$author_id,$post_title,$post_leadParagraph,$post_content,$post_modifyDate, $post_id]);
             
             $this->PHPDataObject->commit();
             
@@ -95,7 +96,8 @@ class PostManager
                     post.content as post_content,
                     post.creationDate as post_creationDate,
                     post.modificationDate as post_modificationDate,
-                    user.login as post_author
+                    user.login as post_author,
+                    post.author_id_user as author_id_user
                 FROM post 
                 INNER JOIN user 
                     ON post.author_id_user = user.id
@@ -112,6 +114,7 @@ class PostManager
             $post->Set_creationDate($fetch['post_creationDate']);
             $post->Set_modificationDate($fetch['post_modificationDate']);
             $post->Set_author($fetch['post_author']);
+            $post->Set_author_id($fetch['author_id_user']);
         }catch(Exception $e) {
             return NULL;
         }
@@ -126,6 +129,7 @@ class PostManager
                     post.content as post_content,
                     post.creationDate as post_creationDate,
                     post.modificationDate as post_modificationDate,
+                    post.author_id_user as post_author_id,
                     user.login as post_author
                 FROM post INNER JOIN user ON post.author_id_user = user.id
                 ORDER BY post.creationDate DESC";
@@ -142,6 +146,7 @@ class PostManager
                 $post->Set_creationDate($fetch['post_creationDate']);
                 $post->Set_modificationDate($fetch['post_modificationDate']);
                 $post->Set_author($fetch['post_author']);
+                $post->Set_author_id($fetch['post_author_id']);
                 array_push($posts,$post->To_array());
             }
 

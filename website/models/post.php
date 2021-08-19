@@ -2,11 +2,12 @@
 
  declare(strict_types=1);
 
- namespace models;
+ namespace Models;
 
 class Post
 {
     private int $post_id;
+    private int $author_id;
 
     private string $leadParagraph;
     private string $creationDate;
@@ -14,13 +15,6 @@ class Post
     private string $title;
     private string $content;
     private string $author;
-
-
-
-    Public function __construct()
-    {
-
-    }
 
     public function To_array():array
     {
@@ -32,11 +26,11 @@ class Post
                   'creationDate' => $this->creationDate,
                   'modificationDate' => $this->modificationDate,
                   'author' => $this->author,
+                  'author_id' => $this->author_id,
                 ];
         return $array;
     }
 
-    // GETTERS //
     public function Get_id()
     {
         return $this->post_id;
@@ -60,6 +54,10 @@ class Post
     public function Get_author()
     {
         return $this->author;
+    }
+
+    public function Get_author_id($author_id){
+        return $this->author_id;
     }
  
     public function Get_creationDate()
@@ -116,6 +114,10 @@ class Post
         }
  
         $this->author = $author;
+    }
+
+    public function Set_author_id($author_id){
+        $this->author_id = $author_id;
     }
   
     public function Set_creationDate($creationDate)

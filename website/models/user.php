@@ -1,6 +1,6 @@
 <?php
 
-namespace models;
+namespace Models;
  
 class User
 {
@@ -14,12 +14,6 @@ class User
     private string $is_admin;
 
 
-
-    Public function __construct()
-    {
-
-    }
-
     public function To_array():array
     {
         $array = [
@@ -32,18 +26,15 @@ class User
                  ];
         return $array;
     }
-
     // GETTERS //
     public function Get_valided()
     {
         return $this->valided;
     }
-
     public function Get_is_admin()
     {
         return $this->is_admin;
     }
-
     public function Get_id()
     {
         return $this->user_id;

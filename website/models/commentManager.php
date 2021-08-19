@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace models;
+namespace Models;
 
-use models\CommentManager;
+use Models\CommentManager;
 
 class CommentManager
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace controllers;
+namespace Controllers;
 
-use models\PostManager;
-use models\SuperGlobal;
-use views\DisplayHTML;
+use Models\PostManager;
+use Models\SuperGlobal;
+use Views\DisplayHTML;
 
 class HomepageController
 {

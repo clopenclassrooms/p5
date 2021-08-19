@@ -9,6 +9,7 @@ class ComposerStaticInit09889beb17dd0a82b917fe90b5bc702c
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
         'e3a6adf17d35f17356270c188c98e7f5' => __DIR__ . '/../..' . '/models/postManager.php',
         'f10c19b11dcd187129178ed915505711' => __DIR__ . '/../..' . '/models/userManager.php',
         'd976138649fd62d0a10d9b3eef2f2c38' => __DIR__ . '/../..' . '/models/commentManager.php',

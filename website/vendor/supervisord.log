@@ -385,3 +385,17 @@
 2021-08-11 11:47:56,416 INFO spawned: 'mysqld' with pid 30
 2021-08-11 11:47:57,970 INFO success: apache2 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2021-08-11 11:47:57,970 INFO success: mysqld entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-08-13 00:35:41,037 WARN received SIGTERM indicating exit request
+2021-08-13 00:35:41,094 INFO waiting for apache2, mysqld to die
+2021-08-13 00:35:42,103 INFO stopped: mysqld (exit status 0)
+2021-08-13 00:35:42,490 INFO stopped: apache2 (exit status 0)
+2021-08-13 11:01:00,864 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2021-08-13 11:01:00,866 INFO Included extra file "/etc/supervisor/conf.d/supervisord-apache2.conf" during parsing
+2021-08-13 11:01:00,866 INFO Included extra file "/etc/supervisor/conf.d/supervisord-mysqld.conf" during parsing
+2021-08-13 11:01:00,874 INFO RPC interface 'supervisor' initialized
+2021-08-13 11:01:00,875 CRIT Server 'unix_http_server' running without any HTTP authentication checking
+2021-08-13 11:01:00,899 INFO supervisord started with pid 1
+2021-08-13 11:01:01,901 INFO spawned: 'apache2' with pid 28
+2021-08-13 11:01:01,904 INFO spawned: 'mysqld' with pid 29
+2021-08-13 11:01:03,380 INFO success: apache2 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2021-08-13 11:01:03,380 INFO success: mysqld entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

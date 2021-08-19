@@ -2,28 +2,32 @@
 
 declare(strict_types=1);
 
-namespace models;
+namespace Models;
 
 class UserManager
 {
     private $superGlobal;
     private $PHPDataObject;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->superGlobal = new SuperGlobal;
         $database = new Database();
         $this->PHPDataObject = $database;
     }
-    public function Set_user_right($users_need_modify,$users_valided,$users_is_admin)
+    public function Set_user_right($users_need_modify, $users_valided, $users_is_admin)
     {
-        $sql = "UPDATE `user` SET `valided` = ?, `is_admin` = ? WHERE `user`.`id` = ?"; 
+        $sql = "UPDATE `user` SET `valided` = ?, `is_admin` = ? WHERE `user`.`id` = ?";
         $prepare = $this->PHPDataObject->prepare($sql);
-        foreach($users_need_modify as $user_need_modify)
-        {
+        foreach ($users_need_modify as $user_need_modify) {
             $valided = 0;
-            if (in_array($user_need_modify, $users_valided)){$valided = 1;}
+            if (in_array($user_need_modify, $users_valided)) {
+                $valided = 1;
+            }
             $is_admin = 0;
-            if (in_array($user_need_modify, $users_is_admin)){$is_admin = 1;}
+            if (in_array($user_need_modify, $users_is_admin)) {
+                $is_admin = 1;
+            }
             $prepare->execute([$valided,$is_admin,$user_need_modify]);
         }
     }
@@ -31,10 +35,10 @@ class UserManager
     {
         $sql = "Select * FROM user";
         $users = [];
-        try{
+        try {
             $prepare = $this->PHPDataObject->prepare($sql);
             $prepare->execute();
-            while ($fetch = $prepare->fetch()){
+            while ($fetch = $prepare->fetch()) {
                 $user = new User();
                 $user->Set_id((int)$fetch['id']);
                 $user->Set_firstname($fetch['firstname']);
@@ -43,10 +47,9 @@ class UserManager
                 $user->Set_password($fetch['password']);
                 $user->Set_valided((int)$fetch['valided']);
                 $user->Set_is_admin((int)$fetch['is_admin']);
-                array_push($users,$user->To_array());
+                array_push($users, $user->To_array());
             }
-
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
         return $users;
@@ -56,29 +59,26 @@ class UserManager
     {
         $sql = "INSERT INTO `user` (`firstname`,`lastname`, `login`, `password`) VALUES (?,?, ?, ?) ";
 
-        try{
+        try {
             $this->PHPDataObject->beginTransaction();
             $prepare = $this->PHPDataObject->prepare($sql);
             $execute = $prepare->execute([$firstname,$lastname,$login,$password]);
             $this->PHPDataObject->commit();
-            
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             $this->PHPDataObject->rollback();
             
             return false;
         }
-        if ($execute){
+        if ($execute) {
             return true;
         }
         return false;
-        
-        
     }
     public function Get_User($login):User
     {
         $sql = "Select * FROM user WHERE login = ?";
         $user = new User();
-        try{
+        try {
             $prepare = $this->PHPDataObject->prepare($sql);
             $prepare->execute([$login]);
             $fetch = $prepare->fetch();
@@ -89,24 +89,23 @@ class UserManager
             $user->Set_password($fetch['password']);
             $user->Set_is_admin((int)$fetch['is_admin']);
             $user->Set_valided((int)$fetch['valided']);
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
         return $user;
     }
-    public function Logging_user($login,$password)
+    public function Logging_user($login, $password)
     {
         $user = $this->Get_User($login);
-        if ($user->Get_password() == $password and $user->Get_valided()){
-            $this->superGlobal->set_key('SESSION','isLog',true);
-            $this->superGlobal->set_key('SESSION','user_id',$user->Get_id());
-            $this->superGlobal->set_key('SESSION','firstname',$user->Get_firstname());
-            $this->superGlobal->set_key('SESSION','lastname',$user->Get_lastname());
-            $this->superGlobal->set_key('SESSION','login',$user->Get_id());
-            $this->superGlobal->set_key('SESSION','is_admin',$user->Get_is_admin());
-            return true;  
+        if ($user->Get_password() == $password and $user->Get_valided()) {
+            $this->superGlobal->set_key('SESSION', 'isLog', true);
+            $this->superGlobal->set_key('SESSION', 'user_id', $user->Get_id());
+            $this->superGlobal->set_key('SESSION', 'firstname', $user->Get_firstname());
+            $this->superGlobal->set_key('SESSION', 'lastname', $user->Get_lastname());
+            $this->superGlobal->set_key('SESSION', 'login', $user->Get_id());
+            $this->superGlobal->set_key('SESSION', 'is_admin', $user->Get_is_admin());
+            return true;
         }
         return false;
     }
-
 }

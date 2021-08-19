@@ -1,11 +1,12 @@
 <?php
 
-namespace controllers;
+namespace Controllers;
 
-use models\PostManager;
-use models\CommentManager;
-use models\SuperGlobal;
-use views\DisplayHTML;
+use Models\PostManager;
+use Models\CommentManager;
+use Models\SuperGlobal;
+use Views\DisplayHTML;
+use Models\UserManager;
 
 class PostController
 {
@@ -60,12 +61,12 @@ class PostController
             $controler->Display_homepage();
         }
     }
-    public function Modify_post($post_id,$post_title,$post_leadParagraph,$post_content)
+    public function Modify_post($post_id,$post_title,$post_leadParagraph,$post_content,$author_id)
     {
         $is_admin = $this->superGlobal->get_key('SESSION','is_admin');
         if ($is_admin){
-            $post_modifyDate = date("Y-m-d H:i:s");
-            $result = $this->postManager->Modify_post($post_title,$post_leadParagraph,$post_content,$post_modifyDate, $post_id);
+            
+            $result = $this->postManager->Modify_post($post_id,$post_title,$post_leadParagraph,$post_content,$author_id);
             
             $values_send_to_twig = [
                 'result' => $result,
@@ -86,9 +87,13 @@ class PostController
     {
         $is_admin = $this->superGlobal->get_key('SESSION','is_admin');
         if ($is_admin){
+            $controler = new UserManager;
+            $users = $controler->Get_All_Users();
+
             $post = $this->postManager->Get_Post($post_id);
 
             $values_send_to_twig = [
+                'users' => $users,
                 'post' => $post->To_array(),
                 'admin_mode' => $this->superGlobal->get_key('SESSION','admin_mode'),
                 'is_admin' => $is_admin,
@@ -178,10 +183,13 @@ class PostController
     }
     public function DisplayAllPosts(bool $admin = false)
     {
-        $admin = 0;
+        
         if ($admin && $this->superGlobal->get_key('SESSION','isLog')){
             $admin = 1;
+        }else{
+            $admin = 0;
         }
+
         $posts = $this->postManager->Get_Posts();
 
         $values_send_to_twig = [

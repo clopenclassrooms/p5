@@ -1,10 +1,10 @@
 <?php
 
-namespace controllers;
+namespace Controllers;
 
-use models\UserManager;
-use models\SuperGlobal;
-use views\DisplayHTML;
+use Models\UserManager;
+use Models\SuperGlobal;
+use Views\DisplayHTML;
 
 class UserController
 {   
