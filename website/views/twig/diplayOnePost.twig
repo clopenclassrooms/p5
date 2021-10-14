@@ -2,6 +2,7 @@
 {{ block("head", "head.twig") }}
     <body>
     {{ block("Navigation", "navigation.twig") }}
+    {% if  error == false %}
         <section>
             <div class="container">
                 <div class="row">
@@ -25,10 +26,10 @@
                     <div class="col-lg-12 text-center">
                         <h3>commentaires</h3>
                     </div>
-                    {% if add_comment == true %}
+                    {% if addComment == true %}
                     <div class="col-lg-12 text-center">
                     
-                        {% if add_comment_result == true %}
+                        {% if addComment_result == true %}
                             {% if is_admin == 0 %}
                             <p>Votre commentaire a été rajouté. Il est en attente de validation par l'administrateur du site</p>
                             {% else %}
@@ -45,7 +46,7 @@
                             <form methode="post" action="/display_post/" name="sentMessage" id="contactForm" novalidate="">
                                 
                                 <input name="post_id" type="hidden" value="{{post.id}}">
-                                <input name="add_comment" type="hidden" value="1">
+                                <input name="addComment" type="hidden" value="1">
                                 
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 d-flex justify-content-center">
@@ -88,6 +89,11 @@
                 <div>
             <div>
         </section>
+        {% else %}
+            <div class="h-75 col-lg-12 text-center">
+                <h1 class="mt-3">Une erreur est survenue</h1>
+            </div>        
+        {% endif %}
     </body>
         {{ block("Footer", "footer.twig") }}
 </html>

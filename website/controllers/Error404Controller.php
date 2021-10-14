@@ -15,16 +15,16 @@ class Error404Controller
         $this->superGlobal = new SuperGlobal;
         $this->displayHTML = new DisplayHTML;
     }
-    public function Display_404()
+    public function display404()
     {
-        $values_send_to_twig = [
-            'admin_mode' => $this->superGlobal->get_key('SESSION','admin_mode'),
-            'is_admin' => $this->superGlobal->get_key('SESSION','is_admin'),
-            'isLog' => $this->superGlobal->get_key('SESSION','isLog'),
-            'firstname' => $this->superGlobal->get_key('SESSION','firstname'),
+        $valuesSendToTwig = [
+            'admin_mode' => $this->superGlobal->getKey('SESSION','admin_mode'),
+            'is_admin' => $this->superGlobal->getKey('SESSION','is_admin'),
+            'isLog' => $this->superGlobal->getKey('SESSION','isLog'),
+            'firstname' => $this->superGlobal->getKey('SESSION','firstname'),
            ];
 
-        $this->displayHTML->displayHTML('Error404.twig',$values_send_to_twig);
+        $this->displayHTML->displayHTML('Error404.twig',$valuesSendToTwig);
 
     }
 }

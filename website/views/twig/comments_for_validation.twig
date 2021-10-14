@@ -12,12 +12,12 @@
                 </div>
                 <div class="row justify-content-center" >
                     <div class="col-lg-6 ">
-                        <form action="/comment_validation/" method="post">
+                        <form action="/commentValidation/" method="post">
                             {% for commmentDATAS in comments %}
                             <div class="d-flex flex-row border">
                                 <div class="col-1 control-group mb-3 d-flex flex-column justify-content-center">
                                     <div class="form-group col-xs-12">
-                                        <input type="checkbox" name="comments_valided[]" value="{{commmentDATAS.id}}">
+                                        <input type="checkbox" name="commentsValided[]" value="{{commmentDATAS.id}}">
                                     </div>
                                 </div> 
                                 <div class="col control-group mb-1">

@@ -6,22 +6,22 @@
     },
     "autoload": {
         "files": [
-            "./models/postManager.php",
-            "./models/userManager.php",
-            "./models/commentManager.php",
-            "./models/post.php",
-            "./models/user.php",
-            "./models/comment.php",
-            "./models/database.php",
-            "./controllers/postController.php",
-            "./controllers/userController.php",
-            "./controllers/commentController.php",
-            "./controllers/mailController.php",
-            "./controllers/homepageController.php",
+            "./models/PostManager.php",
+            "./models/UserManager.php",
+            "./models/CommentManager.php",
+            "./models/Post.php",
+            "./models/User.php",
+            "./models/Comment.php",
+            "./models/Database.php",
+            "./controllers/PostController.php",
+            "./controllers/UserController.php",
+            "./controllers/CommentController.php",
+            "./controllers/MailController.php",
+            "./controllers/HomepageController.php",
             "./controllers/Error404Controller.php",
             "./vendor/autoload.php",
-            "./models/superglobal.php",
-            "./views/php/display_html.php"
+            "./models/Superglobal.php",
+            "./views/php/DisplayHtml.php"
         ]
     },
     "require-dev": {

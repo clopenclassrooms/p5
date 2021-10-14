@@ -19,7 +19,7 @@
                 </h3>
                 {% if admin == true %}
                 <p>
-                    <a href="/delete_post/?posts_id[]={{ post.id }}">Supprimer le post</a> || <a href="/edit_post/?post_id={{ post.id }}">Modifier le post</a>
+                    <a href="/delete_post/?posts_id[]={{ post.id }}">Supprimer le post</a> || <a href="/editPost/?post_id={{ post.id }}">Modifier le post</a>
                 </p>
                 {% endif %}
                 <p>Auteur : {{ post.author }} | Date de création : {{ post.creationDate }} | Date de la dernière modification : {{ post.modificationDate }} </p>
