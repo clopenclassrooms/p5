@@ -1,11 +1,6 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f254f1aef6754268b36dd358e488997e)](https://www.codacy.com/gh/clopenclassrooms/p5/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=clopenclassrooms/p5&amp;utm_campaign=Badge_Grade)
 
 # Projet P5
-## Table of contents
-*   [Introduction](##introduction)
-*   [install the demo site locally](##install-the-demo-site-locally)
-
-## Introduction
 
 ## install the demo site locally
 *   install docker (see : https://docs.docker.com/engine/install/ )
