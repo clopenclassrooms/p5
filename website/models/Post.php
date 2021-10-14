@@ -6,7 +6,6 @@
 
 class Post
 {
-    private int $postId;
     private int $authorId;
 
     private string $leadParagraph;
@@ -56,7 +55,7 @@ class Post
         return $this->author;
     }
 
-    public function getAuthorId($authorId){
+    public function getAuthorId(){
         return $this->authorId;
     }
  
