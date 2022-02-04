@@ -7,7 +7,7 @@ WORKDIR /var/www/html/vendor/
 RUN wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php
 COPY composer.phar /var/www/html/vendor/composer.phar
 COPY composer.json /var/www/html/vendor/composer.json
-RUN php composer.phar update
+#RUN php composer.phar update
 RUN apt-get install -y --no-install-recommends nano=2.9.3-2
 COPY php.ini /etc/php/7.4/apache2/php.ini
 CMD ["/run.sh"]
